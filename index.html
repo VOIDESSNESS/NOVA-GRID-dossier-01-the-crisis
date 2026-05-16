@@ -1,0 +1,3059 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>DOSSIER I: THE CRISIS — Nova Grid Nigeria</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,200;12..96,400;12..96,600;12..96,700;12..96,800&family=IBM+Plex+Serif:ital,wght@0,300;0,400;0,600;1,300;1,400&family=IBM+Plex+Mono:wght@300;400;500;600&display=swap" rel="stylesheet">
+<script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.0/dist/chart.umd.min.js"></script>
+<style>
+:root {
+  --ink: #050B18;
+  --ink-2: #090F1E;
+  --ink-3: #0D1526;
+  --ink-4: #111D33;
+  --ink-5: #162140;
+  --amber: #F59E0B;
+  --amber-dim: rgba(245,158,11,0.12);
+  --amber-mid: rgba(245,158,11,0.25);
+  --teal: #00F5D4;
+  --teal-dim: rgba(0,245,212,0.08);
+  --red: #FF3B30;
+  --red-dim: rgba(255,59,48,0.1);
+  --red-mid: rgba(255,59,48,0.2);
+  --blue: #3B82F6;
+  --blue-dim: rgba(59,130,246,0.1);
+  --text-1: #F0F2F8;
+  --text-2: #9AA8C7;
+  --text-3: #5A6A8A;
+  --text-4: #374260;
+  --border: rgba(255,255,255,0.06);
+  --border-amber: rgba(245,158,11,0.2);
+  --sidebar-w: 270px;
+}
+
+*, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
+html { scroll-behavior: smooth; }
+
+body {
+  font-family: 'IBM Plex Serif', Georgia, serif;
+  background: var(--ink);
+  color: var(--text-1);
+  overflow-x: hidden;
+  line-height: 1.7;
+}
+
+/* ── SCROLLBAR ── */
+::-webkit-scrollbar { width: 5px; }
+::-webkit-scrollbar-track { background: var(--ink-2); }
+::-webkit-scrollbar-thumb { background: var(--text-4); border-radius: 10px; }
+
+/* ── SIDEBAR ── */
+#sidebar {
+  position: fixed;
+  left: 0; top: 0;
+  width: var(--sidebar-w);
+  height: 100vh;
+  background: var(--ink-2);
+  border-right: 1px solid var(--border);
+  overflow-y: auto;
+  z-index: 200;
+  display: flex;
+  flex-direction: column;
+}
+
+.sb-header {
+  padding: 28px 24px 20px;
+  border-bottom: 1px solid var(--border);
+  flex-shrink: 0;
+}
+
+.sb-project {
+  font-family: 'Bricolage Grotesque', sans-serif;
+  font-size: 13px;
+  font-weight: 800;
+  letter-spacing: 3px;
+  text-transform: uppercase;
+  color: var(--amber);
+  margin-bottom: 4px;
+}
+
+.sb-tagline {
+  font-family: 'IBM Plex Mono', monospace;
+  font-size: 9px;
+  color: var(--text-3);
+  letter-spacing: 1px;
+  text-transform: uppercase;
+}
+
+.sb-dossier-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  margin-top: 14px;
+  background: var(--red-dim);
+  border: 1px solid var(--red-mid);
+  padding: 5px 10px;
+  border-radius: 4px;
+}
+
+.sb-dossier-badge span {
+  font-family: 'IBM Plex Mono', monospace;
+  font-size: 9px;
+  color: var(--red);
+  letter-spacing: 1.5px;
+  text-transform: uppercase;
+  font-weight: 600;
+}
+
+.sb-pulse {
+  width: 6px; height: 6px;
+  background: var(--red);
+  border-radius: 50%;
+  animation: pulse 2s ease-in-out infinite;
+}
+
+@keyframes pulse {
+  0%, 100% { opacity: 1; transform: scale(1); }
+  50% { opacity: 0.4; transform: scale(0.8); }
+}
+
+.sb-nav { flex: 1; padding: 16px 0; overflow-y: auto; }
+
+.sb-section-label {
+  padding: 12px 24px 6px;
+  font-family: 'IBM Plex Mono', monospace;
+  font-size: 8px;
+  letter-spacing: 2px;
+  text-transform: uppercase;
+  color: var(--text-4);
+  font-weight: 600;
+}
+
+.sb-link {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 9px 24px;
+  text-decoration: none;
+  font-family: 'Bricolage Grotesque', sans-serif;
+  font-size: 12px;
+  font-weight: 500;
+  color: var(--text-3);
+  border-left: 2px solid transparent;
+  transition: all 0.2s ease;
+  cursor: pointer;
+}
+
+.sb-link:hover, .sb-link.active {
+  color: var(--amber);
+  background: var(--amber-dim);
+  border-left-color: var(--amber);
+}
+
+.sb-num {
+  font-family: 'IBM Plex Mono', monospace;
+  font-size: 9px;
+  width: 20px;
+  height: 20px;
+  background: var(--ink-4);
+  border-radius: 4px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+  color: var(--text-4);
+  font-weight: 600;
+}
+
+.sb-link:hover .sb-num, .sb-link.active .sb-num {
+  background: var(--amber-mid);
+  color: var(--amber);
+}
+
+.sb-footer {
+  padding: 16px 24px;
+  border-top: 1px solid var(--border);
+  flex-shrink: 0;
+}
+
+.sb-footer p {
+  font-family: 'IBM Plex Mono', monospace;
+  font-size: 8px;
+  color: var(--text-4);
+  letter-spacing: 1px;
+  text-transform: uppercase;
+  line-height: 1.6;
+}
+
+/* ── MAIN ── */
+#main {
+  margin-left: var(--sidebar-w);
+  min-height: 100vh;
+}
+
+/* ── SECTION BASE ── */
+.section {
+  padding: 100px 80px;
+  border-bottom: 1px solid var(--border);
+  position: relative;
+}
+
+.section:nth-child(even) { background: var(--ink-2); }
+
+/* ── COVER ── */
+#cover {
+  min-height: 100vh;
+  padding: 0;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-end;
+  position: relative;
+  overflow: hidden;
+  background: var(--ink);
+  border-bottom: 1px solid var(--border);
+}
+
+.cover-bg {
+  position: absolute;
+  inset: 0;
+  background:
+    radial-gradient(ellipse 80% 60% at 60% 20%, rgba(245,158,11,0.06) 0%, transparent 60%),
+    radial-gradient(ellipse 50% 40% at 10% 80%, rgba(255,59,48,0.05) 0%, transparent 60%),
+    radial-gradient(ellipse 40% 40% at 90% 90%, rgba(0,245,212,0.04) 0%, transparent 60%);
+}
+
+.cover-grid {
+  position: absolute;
+  inset: 0;
+  background-image:
+    linear-gradient(rgba(245,158,11,0.025) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(245,158,11,0.025) 1px, transparent 1px);
+  background-size: 60px 60px;
+}
+
+.cover-scanlines {
+  position: absolute;
+  inset: 0;
+  background: repeating-linear-gradient(
+    0deg,
+    transparent,
+    transparent 2px,
+    rgba(0,0,0,0.03) 2px,
+    rgba(0,0,0,0.03) 4px
+  );
+  pointer-events: none;
+}
+
+.cover-content {
+  position: relative;
+  padding: 80px;
+  max-width: 1100px;
+}
+
+.cover-classification {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  margin-bottom: 48px;
+}
+
+.class-chip {
+  font-family: 'IBM Plex Mono', monospace;
+  font-size: 9px;
+  letter-spacing: 2px;
+  text-transform: uppercase;
+  padding: 5px 12px;
+  border-radius: 3px;
+}
+
+.class-chip.red {
+  color: var(--red);
+  border: 1px solid var(--red-mid);
+  background: var(--red-dim);
+}
+
+.class-chip.amber {
+  color: var(--amber);
+  border: 1px solid var(--border-amber);
+  background: var(--amber-dim);
+}
+
+.class-chip.plain {
+  color: var(--text-3);
+  border: 1px solid var(--border);
+}
+
+.cover-eyebrow {
+  font-family: 'IBM Plex Mono', monospace;
+  font-size: 11px;
+  color: var(--amber);
+  letter-spacing: 3px;
+  text-transform: uppercase;
+  font-weight: 400;
+  margin-bottom: 20px;
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.cover-eyebrow::before {
+  content: '';
+  display: block;
+  width: 40px;
+  height: 1px;
+  background: var(--amber);
+}
+
+.cover-title {
+  font-family: 'Bricolage Grotesque', sans-serif;
+  font-size: clamp(48px, 7vw, 90px);
+  font-weight: 800;
+  line-height: 1.0;
+  color: var(--text-1);
+  margin-bottom: 16px;
+  letter-spacing: -2px;
+}
+
+.cover-title em {
+  color: var(--red);
+  font-style: normal;
+}
+
+.cover-title .ng {
+  color: var(--amber);
+}
+
+.cover-subtitle {
+  font-size: 20px;
+  color: var(--text-2);
+  max-width: 700px;
+  line-height: 1.65;
+  margin-bottom: 60px;
+  font-weight: 300;
+  font-style: italic;
+}
+
+.cover-kpis {
+  display: flex;
+  gap: 0;
+  margin-bottom: 64px;
+}
+
+.kpi {
+  padding: 28px 40px;
+  border: 1px solid var(--border);
+  border-right: none;
+  background: rgba(255,255,255,0.02);
+}
+
+.kpi:first-child { border-radius: 8px 0 0 8px; }
+.kpi:last-child { border-radius: 0 8px 8px 0; border-right: 1px solid var(--border); }
+
+.kpi-number {
+  font-family: 'IBM Plex Mono', monospace;
+  font-size: 38px;
+  font-weight: 600;
+  line-height: 1;
+  color: var(--amber);
+  margin-bottom: 6px;
+}
+
+.kpi-number.red { color: var(--red); }
+.kpi-number.teal { color: var(--teal); }
+
+.kpi-label {
+  font-family: 'Bricolage Grotesque', sans-serif;
+  font-size: 10px;
+  text-transform: uppercase;
+  letter-spacing: 1.5px;
+  color: var(--text-3);
+  font-weight: 600;
+}
+
+.cover-bottom {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  border-top: 1px solid var(--border);
+  padding: 24px 80px;
+  background: var(--ink-2);
+  position: relative;
+}
+
+.cover-bottom-left {
+  display: flex;
+  gap: 32px;
+  align-items: center;
+}
+
+.cb-item {
+  font-family: 'IBM Plex Mono', monospace;
+  font-size: 10px;
+  color: var(--text-3);
+  letter-spacing: 1px;
+  text-transform: uppercase;
+}
+
+.cb-item strong {
+  color: var(--text-2);
+  display: block;
+  margin-bottom: 2px;
+  font-size: 11px;
+}
+
+.scroll-hint {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  font-family: 'IBM Plex Mono', monospace;
+  font-size: 9px;
+  color: var(--text-4);
+  letter-spacing: 1px;
+  text-transform: uppercase;
+}
+
+.scroll-arrow {
+  width: 24px;
+  height: 24px;
+  border: 1px solid var(--border);
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  animation: bounce 2s ease-in-out infinite;
+}
+
+@keyframes bounce {
+  0%, 100% { transform: translateY(0); }
+  50% { transform: translateY(4px); }
+}
+
+/* ── TYPOGRAPHY UTILITIES ── */
+.section-tag {
+  font-family: 'IBM Plex Mono', monospace;
+  font-size: 9px;
+  letter-spacing: 3px;
+  text-transform: uppercase;
+  color: var(--amber);
+  font-weight: 500;
+  margin-bottom: 16px;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.section-tag::after {
+  content: '';
+  height: 1px;
+  width: 40px;
+  background: var(--amber);
+  opacity: 0.4;
+}
+
+.section-tag.red { color: var(--red); }
+.section-tag.red::after { background: var(--red); }
+.section-tag.teal { color: var(--teal); }
+.section-tag.teal::after { background: var(--teal); }
+
+.h1 {
+  font-family: 'Bricolage Grotesque', sans-serif;
+  font-size: clamp(36px, 4vw, 56px);
+  font-weight: 800;
+  line-height: 1.1;
+  color: var(--text-1);
+  letter-spacing: -1.5px;
+  margin-bottom: 20px;
+}
+
+.h2 {
+  font-family: 'Bricolage Grotesque', sans-serif;
+  font-size: clamp(26px, 3vw, 40px);
+  font-weight: 700;
+  line-height: 1.15;
+  color: var(--text-1);
+  letter-spacing: -1px;
+  margin-bottom: 16px;
+}
+
+.h3 {
+  font-family: 'Bricolage Grotesque', sans-serif;
+  font-size: 20px;
+  font-weight: 700;
+  color: var(--text-1);
+  margin-bottom: 10px;
+  letter-spacing: -0.5px;
+}
+
+.lead {
+  font-size: 18px;
+  color: var(--text-2);
+  max-width: 760px;
+  line-height: 1.8;
+  margin-bottom: 48px;
+  font-weight: 300;
+}
+
+.body {
+  font-size: 15px;
+  color: var(--text-2);
+  line-height: 1.9;
+  max-width: 800px;
+  margin-bottom: 20px;
+}
+
+.body strong { color: var(--text-1); font-weight: 600; }
+
+/* ── STAT CARDS ── */
+.stat-grid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 1px;
+  background: var(--border);
+  border: 1px solid var(--border);
+  border-radius: 12px;
+  overflow: hidden;
+  margin: 48px 0;
+}
+
+.stat-card {
+  background: var(--ink-3);
+  padding: 32px 28px;
+  transition: background 0.3s;
+}
+
+.stat-card:hover { background: var(--ink-4); }
+
+.sc-number {
+  font-family: 'IBM Plex Mono', monospace;
+  font-size: 40px;
+  font-weight: 600;
+  line-height: 1;
+  margin-bottom: 10px;
+}
+
+.sc-number.amber { color: var(--amber); }
+.sc-number.red { color: var(--red); }
+.sc-number.teal { color: var(--teal); }
+.sc-number.blue { color: var(--blue); }
+
+.sc-label {
+  font-family: 'Bricolage Grotesque', sans-serif;
+  font-size: 13px;
+  font-weight: 600;
+  color: var(--text-1);
+  margin-bottom: 6px;
+}
+
+.sc-desc {
+  font-size: 11px;
+  color: var(--text-3);
+  line-height: 1.5;
+  font-family: 'IBM Plex Serif', serif;
+  font-style: italic;
+}
+
+/* ── CHARTS ── */
+.chart-box {
+  background: var(--ink-3);
+  border: 1px solid var(--border);
+  border-radius: 12px;
+  padding: 32px;
+  margin: 32px 0;
+}
+
+.chart-box-header {
+  margin-bottom: 24px;
+}
+
+.chart-box-title {
+  font-family: 'Bricolage Grotesque', sans-serif;
+  font-size: 17px;
+  font-weight: 700;
+  color: var(--text-1);
+  margin-bottom: 4px;
+}
+
+.chart-box-sub {
+  font-family: 'IBM Plex Mono', monospace;
+  font-size: 10px;
+  color: var(--text-3);
+  text-transform: uppercase;
+  letter-spacing: 1px;
+}
+
+.chart-wrap { position: relative; height: 300px; }
+.chart-wrap.tall { height: 380px; }
+.chart-wrap.short { height: 220px; }
+
+.chart-grid-2 {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 24px;
+  margin: 32px 0;
+}
+
+.chart-grid-3 {
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr;
+  gap: 24px;
+  margin: 32px 0;
+}
+
+/* ── TIMELINE ── */
+.timeline {
+  position: relative;
+  padding-left: 52px;
+  margin: 48px 0;
+}
+
+.timeline::before {
+  content: '';
+  position: absolute;
+  left: 16px;
+  top: 10px;
+  bottom: 10px;
+  width: 2px;
+  background: linear-gradient(to bottom, var(--amber), var(--red), rgba(255,59,48,0));
+}
+
+.tl-era {
+  margin-bottom: 40px;
+}
+
+.tl-era-label {
+  font-family: 'IBM Plex Mono', monospace;
+  font-size: 9px;
+  text-transform: uppercase;
+  letter-spacing: 2px;
+  color: var(--text-4);
+  font-weight: 600;
+  margin-bottom: 16px;
+  padding-left: 0;
+}
+
+.tl-item {
+  position: relative;
+  margin-bottom: 24px;
+}
+
+.tl-dot {
+  position: absolute;
+  left: -42px;
+  top: 5px;
+  width: 14px;
+  height: 14px;
+  border-radius: 50%;
+  background: var(--amber);
+  border: 3px solid var(--ink);
+  z-index: 2;
+}
+
+.tl-dot.red { background: var(--red); }
+.tl-dot.teal { background: var(--teal); }
+.tl-dot.dim { background: var(--text-4); }
+
+.tl-year {
+  font-family: 'IBM Plex Mono', monospace;
+  font-size: 11px;
+  font-weight: 600;
+  color: var(--amber);
+  margin-bottom: 3px;
+  letter-spacing: 1px;
+}
+
+.tl-year.red { color: var(--red); }
+
+.tl-event {
+  font-family: 'Bricolage Grotesque', sans-serif;
+  font-size: 15px;
+  font-weight: 700;
+  color: var(--text-1);
+  margin-bottom: 4px;
+}
+
+.tl-detail {
+  font-size: 13px;
+  color: var(--text-3);
+  line-height: 1.55;
+  max-width: 680px;
+}
+
+/* ── CALLOUTS ── */
+.callout {
+  border-radius: 0 10px 10px 0;
+  padding: 24px 28px;
+  margin: 32px 0;
+  border-left: 4px solid;
+}
+
+.callout.amber {
+  background: var(--amber-dim);
+  border-color: var(--amber);
+}
+
+.callout.red {
+  background: var(--red-dim);
+  border-color: var(--red);
+}
+
+.callout.teal {
+  background: var(--teal-dim);
+  border-color: var(--teal);
+}
+
+.callout-text {
+  font-size: 16px;
+  color: var(--text-1);
+  line-height: 1.7;
+  font-style: italic;
+  margin-bottom: 10px;
+  font-weight: 300;
+}
+
+.callout-text strong {
+  font-style: normal;
+  font-weight: 600;
+}
+
+.callout-attr {
+  font-family: 'IBM Plex Mono', monospace;
+  font-size: 10px;
+  color: var(--text-3);
+  text-transform: uppercase;
+  letter-spacing: 1px;
+}
+
+/* ── TABLE ── */
+.data-table-wrap {
+  overflow-x: auto;
+  margin: 32px 0;
+}
+
+.data-table {
+  width: 100%;
+  border-collapse: collapse;
+  font-family: 'IBM Plex Serif', serif;
+  font-size: 13px;
+}
+
+.data-table thead th {
+  text-align: left;
+  padding: 12px 16px;
+  font-family: 'IBM Plex Mono', monospace;
+  font-size: 9px;
+  text-transform: uppercase;
+  letter-spacing: 1.5px;
+  color: var(--text-3);
+  border-bottom: 1px solid var(--border);
+  background: var(--ink-3);
+  font-weight: 500;
+}
+
+.data-table tbody td {
+  padding: 14px 16px;
+  color: var(--text-2);
+  border-bottom: 1px solid rgba(255,255,255,0.03);
+  line-height: 1.4;
+}
+
+.data-table tbody tr:hover td {
+  background: rgba(245,158,11,0.03);
+}
+
+.data-table .row-ng td {
+  color: var(--amber);
+  font-weight: 600;
+}
+
+.data-table .row-world td {
+  color: var(--teal);
+  font-weight: 600;
+}
+
+td.val {
+  font-family: 'IBM Plex Mono', monospace;
+  font-weight: 600;
+}
+
+td.bad { color: var(--red) !important; }
+td.ok { color: var(--amber) !important; }
+td.good { color: var(--teal) !important; }
+
+/* ── PROGRESS BARS ── */
+.progress-list { margin: 24px 0; }
+
+.prog-item { margin-bottom: 20px; }
+
+.prog-header {
+  display: flex;
+  justify-content: space-between;
+  margin-bottom: 7px;
+}
+
+.prog-label {
+  font-family: 'Bricolage Grotesque', sans-serif;
+  font-size: 13px;
+  font-weight: 600;
+  color: var(--text-2);
+}
+
+.prog-value {
+  font-family: 'IBM Plex Mono', monospace;
+  font-size: 12px;
+  color: var(--text-1);
+  font-weight: 600;
+}
+
+.prog-track {
+  height: 8px;
+  background: rgba(255,255,255,0.06);
+  border-radius: 4px;
+  overflow: hidden;
+}
+
+.prog-fill {
+  height: 100%;
+  border-radius: 4px;
+  transition: width 1.5s ease;
+}
+
+/* ── IMPACT CARDS ── */
+.impact-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 20px;
+  margin: 40px 0;
+}
+
+.impact-card {
+  background: var(--ink-3);
+  border: 1px solid var(--border);
+  border-radius: 10px;
+  padding: 28px;
+  border-top: 3px solid;
+  transition: transform 0.2s;
+}
+
+.impact-card:hover { transform: translateY(-3px); }
+.impact-card.amber { border-top-color: var(--amber); }
+.impact-card.red { border-top-color: var(--red); }
+.impact-card.teal { border-top-color: var(--teal); }
+.impact-card.blue { border-top-color: var(--blue); }
+
+.ic-sector {
+  font-family: 'IBM Plex Mono', monospace;
+  font-size: 9px;
+  text-transform: uppercase;
+  letter-spacing: 2px;
+  color: var(--text-4);
+  margin-bottom: 14px;
+  font-weight: 600;
+}
+
+.ic-figure {
+  font-family: 'IBM Plex Mono', monospace;
+  font-size: 32px;
+  font-weight: 600;
+  line-height: 1;
+  margin-bottom: 10px;
+}
+
+.ic-figure.amber { color: var(--amber); }
+.ic-figure.red { color: var(--red); }
+.ic-figure.teal { color: var(--teal); }
+.ic-figure.blue { color: var(--blue); }
+
+.ic-desc {
+  font-size: 12px;
+  color: var(--text-3);
+  line-height: 1.55;
+}
+
+/* ── TWO-COL LAYOUT ── */
+.two-col {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 60px;
+  align-items: start;
+}
+
+.two-col-rev { direction: rtl; }
+.two-col-rev > * { direction: ltr; }
+
+/* ── DIVIDER ── */
+.divider {
+  height: 1px;
+  background: var(--border);
+  margin: 52px 0;
+}
+
+.divider-label {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  margin: 52px 0;
+}
+
+.divider-label-line { flex: 1; height: 1px; background: var(--border); }
+
+.divider-label-text {
+  font-family: 'IBM Plex Mono', monospace;
+  font-size: 8px;
+  letter-spacing: 3px;
+  text-transform: uppercase;
+  color: var(--text-4);
+  white-space: nowrap;
+}
+
+/* ── TAGS ── */
+.tag {
+  display: inline-block;
+  padding: 4px 10px;
+  border-radius: 4px;
+  font-family: 'IBM Plex Mono', monospace;
+  font-size: 10px;
+  font-weight: 500;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+  margin: 3px;
+}
+
+.tag.red { background: var(--red-dim); color: var(--red); border: 1px solid var(--red-mid); }
+.tag.amber { background: var(--amber-dim); color: var(--amber); border: 1px solid var(--border-amber); }
+.tag.teal { background: var(--teal-dim); color: var(--teal); border: 1px solid rgba(0,245,212,0.2); }
+.tag.blue { background: var(--blue-dim); color: var(--blue); border: 1px solid rgba(59,130,246,0.2); }
+
+/* ── SOLUTION PREVIEW SECTION ── */
+.solution-strip {
+  background: linear-gradient(135deg, rgba(0,245,212,0.05) 0%, rgba(245,158,11,0.05) 100%);
+  border: 1px solid rgba(0,245,212,0.15);
+  border-radius: 16px;
+  padding: 52px;
+  margin: 48px 0;
+  position: relative;
+  overflow: hidden;
+}
+
+.solution-strip::after {
+  content: 'DOSSIER II →';
+  position: absolute;
+  right: 48px;
+  bottom: 48px;
+  font-family: 'IBM Plex Mono', monospace;
+  font-size: 11px;
+  color: rgba(0,245,212,0.3);
+  letter-spacing: 2px;
+}
+
+/* ── CONCLUSION SECTION ── */
+#conclusion {
+  background: linear-gradient(180deg, var(--ink-2) 0%, var(--ink) 100%);
+}
+
+/* ── FOOTNOTES ── */
+.footnote {
+  font-family: 'IBM Plex Mono', monospace;
+  font-size: 10px;
+  color: var(--text-4);
+  border-top: 1px solid var(--border);
+  padding-top: 24px;
+  margin-top: 48px;
+  line-height: 1.8;
+}
+
+/* ── PAGE INDICATOR ── */
+.page-ind {
+  position: fixed;
+  bottom: 24px;
+  right: 24px;
+  background: var(--ink-2);
+  border: 1px solid var(--border);
+  border-radius: 6px;
+  padding: 8px 14px;
+  font-family: 'IBM Plex Mono', monospace;
+  font-size: 10px;
+  color: var(--text-3);
+  z-index: 500;
+  letter-spacing: 1px;
+}
+
+/* ── ANIMATIONS ── */
+@keyframes fadeUp {
+  from { opacity: 0; transform: translateY(24px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+.fade-up {
+  animation: fadeUp 0.7s ease forwards;
+}
+
+.fade-up-1 { animation-delay: 0.1s; }
+.fade-up-2 { animation-delay: 0.2s; }
+.fade-up-3 { animation-delay: 0.3s; }
+.fade-up-4 { animation-delay: 0.4s; }
+.fade-up-5 { animation-delay: 0.5s; }
+
+/* ── RESPONSIVE ── */
+@media (max-width: 1200px) {
+  :root { --sidebar-w: 230px; }
+  .section { padding: 80px 56px; }
+  .stat-grid { grid-template-columns: repeat(2, 1fr); }
+  .impact-grid { grid-template-columns: repeat(2, 1fr); }
+  .chart-grid-2 { grid-template-columns: 1fr; }
+  .chart-grid-3 { grid-template-columns: 1fr; }
+}
+
+@media (max-width: 900px) {
+  #sidebar { transform: translateX(-100%); }
+  #main { margin-left: 0; }
+  .section { padding: 60px 28px; }
+  .cover-content { padding: 40px 28px; }
+  .cover-bottom { padding: 20px 28px; }
+  .cover-title { font-size: 40px; letter-spacing: -1px; }
+  .two-col { grid-template-columns: 1fr; gap: 36px; }
+  .stat-grid { grid-template-columns: 1fr 1fr; }
+  .impact-grid { grid-template-columns: 1fr; }
+  .cover-kpis { flex-wrap: wrap; }
+  .kpi { flex: 1; min-width: 140px; }
+}
+</style>
+</head>
+<body>
+
+<!-- ═══════════════════════════════════════ SIDEBAR ═══════════════════════════════════════ -->
+<nav id="sidebar">
+  <div class="sb-header">
+    <div class="sb-project">NOVA GRID</div>
+    <div class="sb-tagline">Nigeria · Power Revolution</div>
+    <div class="sb-dossier-badge">
+      <div class="sb-pulse"></div>
+      <span>Dossier I · The Crisis</span>
+    </div>
+  </div>
+
+  <div class="sb-nav">
+    <div class="sb-section-label">Contents</div>
+    <a class="sb-link" href="#cover"><span class="sb-num">00</span>Cover</a>
+    <a class="sb-link" href="#executive-summary"><span class="sb-num">01</span>Executive Summary</a>
+    <a class="sb-link" href="#history"><span class="sb-num">02</span>Historical Context</a>
+    <a class="sb-link" href="#scale"><span class="sb-num">03</span>Scale of the Crisis</a>
+    <a class="sb-link" href="#economic"><span class="sb-num">04</span>Economic Devastation</a>
+    <a class="sb-link" href="#human"><span class="sb-num">05</span>The Human Cost</a>
+    <a class="sb-link" href="#industrial"><span class="sb-num">06</span>Industrial Collapse</a>
+    <a class="sb-link" href="#agriculture"><span class="sb-num">07</span>Agricultural Losses</a>
+    <a class="sb-link" href="#technology"><span class="sb-num">08</span>Technology Exclusion</a>
+    <a class="sb-link" href="#healthcare"><span class="sb-num">09</span>Healthcare Emergency</a>
+    <a class="sb-link" href="#education"><span class="sb-num">10</span>Education Deficit</a>
+    <a class="sb-link" href="#data-infra"><span class="sb-num">11</span>Data Infrastructure</a>
+    <a class="sb-link" href="#corruption"><span class="sb-num">12</span>Corruption & Decay</a>
+    <a class="sb-link" href="#continental"><span class="sb-num">13</span>Continental Impact</a>
+    <a class="sb-link" href="#psychology"><span class="sb-num">14</span>Psychology of Darkness</a>
+    <a class="sb-link" href="#solution-preview"><span class="sb-num">15</span>Path Forward</a>
+    <a class="sb-link" href="#conclusion"><span class="sb-num">16</span>Conclusion</a>
+  </div>
+
+  <div class="sb-footer">
+    <p>NOVA GRID NIGERIA<br>Proprietary Investment Brief<br>Prepared 2025 · All Rights Reserved<br><br>Primary Target: Dangote Group<br>Classification: Restricted</p>
+  </div>
+</nav>
+
+<!-- ═══════════════════════════════════════ MAIN ═══════════════════════════════════════ -->
+<main id="main">
+
+<!-- ══ SECTION 00: COVER ══ -->
+<section id="cover">
+  <div class="cover-bg"></div>
+  <div class="cover-grid"></div>
+  <div class="cover-scanlines"></div>
+
+  <div class="cover-content">
+    <div class="cover-classification fade-up">
+      <div class="class-chip red">Restricted · Investment Brief</div>
+      <div class="class-chip amber">Dossier I of IV</div>
+      <div class="class-chip plain">2025 · Nigeria</div>
+    </div>
+
+    <div class="cover-eyebrow fade-up fade-up-1">Nova Grid Nigeria · The Crisis</div>
+
+    <h1 class="cover-title fade-up fade-up-2">
+      A <em>Nation</em><br>
+      Held in<br>
+      the <span class="ng">Dark</span>
+    </h1>
+
+    <p class="cover-subtitle fade-up fade-up-3">
+      The complete, unflinching documentation of Nigeria's power sector crisis — 
+      its history, its depth, its human cost, and the unprecedented opportunity 
+      it represents for those bold enough to fix it.
+    </p>
+
+    <div class="cover-kpis fade-up fade-up-4">
+      <div class="kpi">
+        <div class="kpi-number">~4,200<span style="font-size:22px">MW</span></div>
+        <div class="kpi-label">Actual avg generation<br>vs 13,014MW installed</div>
+      </div>
+      <div class="kpi">
+        <div class="kpi-number red">$29.3<span style="font-size:22px">B</span></div>
+        <div class="kpi-label">Annual economic<br>loss to power failure</div>
+      </div>
+      <div class="kpi">
+        <div class="kpi-number">220<span style="font-size:22px">M</span></div>
+        <div class="kpi-label">Nigerians bearing<br>this burden daily</div>
+      </div>
+      <div class="kpi">
+        <div class="kpi-number teal">60<span style="font-size:22px">M+</span></div>
+        <div class="kpi-label">Generators running<br>across the country</div>
+      </div>
+    </div>
+  </div>
+
+  <div class="cover-bottom">
+    <div class="cover-bottom-left">
+      <div class="cb-item"><strong>Prepared For</strong>The Dangote Group & Select Investors</div>
+      <div class="cb-item"><strong>Classification</strong>Restricted — Investment Sensitive</div>
+      <div class="cb-item"><strong>Dossier Ref</strong>NG-PWR-001 · v1.0</div>
+    </div>
+    <div class="scroll-hint">
+      <span>Scroll to read</span>
+      <div class="scroll-arrow">↓</div>
+    </div>
+  </div>
+</section>
+
+<!-- ══ SECTION 01: EXECUTIVE SUMMARY ══ -->
+<section id="executive-summary" class="section">
+  <div class="section-tag red">01 — Executive Summary</div>
+  <h1 class="h1">The Verdict:<br>Systemic, Generational Failure</h1>
+  <p class="lead">
+    Nigeria possesses the population, the natural resources, and the economic mass to be Africa's 
+    undisputed superpower. Instead, it is a nation running on generators — a country where the 
+    simple act of turning on a light switch is an aspiration, not a guarantee.
+  </p>
+
+  <div class="body">
+    This is not a recent failure. Nigeria's power sector has been in systemic decline for over six decades, 
+    eroded by institutional neglect, endemic corruption, chronic underinvestment, and a regulatory framework 
+    so fractured it has defied every serious reform attempt. The consequences are not abstract statistics — 
+    they are inscribed in the daily lives of 220 million people, in shuttered factories, spoiled harvests, 
+    preventable deaths, and a generation of young Nigerians unable to study after dark.
+  </div>
+
+  <div class="body">
+    Nigeria's installed power generation capacity stands at approximately <strong>13,014 MW</strong> — 
+    already catastrophically insufficient for a nation of its scale. But the true horror lies beneath: 
+    the country consistently generates between <strong>3,500 and 5,000 MW</strong> of actual electricity. 
+    That is less power than the city of Houston, Texas — a single American city — uses on an average afternoon. 
+    For 220 million people.
+  </div>
+
+  <div class="callout red">
+    <p class="callout-text">
+      "Nigeria loses an estimated <strong>$29.3 billion annually</strong> to inadequate power supply. 
+      This is not just an energy crisis. It is the single greatest impediment to Nigeria's development, 
+      and arguably the most expensive infrastructure failure on the African continent."
+    </p>
+    <div class="callout-attr">— World Bank Group, Nigeria Energy Sector Assessment, 2023</div>
+  </div>
+
+  <div class="stat-grid">
+    <div class="stat-card">
+      <div class="sc-number amber">32%</div>
+      <div class="sc-label">GDP Suppression</div>
+      <div class="sc-desc">Estimated percentage by which Nigeria's GDP is artificially suppressed due to unreliable power supply</div>
+    </div>
+    <div class="stat-card">
+      <div class="sc-number red">85M+</div>
+      <div class="sc-label">Without Electricity</div>
+      <div class="sc-desc">Nigerians with zero access to grid electricity — one of the largest off-grid populations on earth</div>
+    </div>
+    <div class="stat-card">
+      <div class="sc-number amber">160<span style="font-size:22px">kWh</span></div>
+      <div class="sc-label">Per Capita / Year</div>
+      <div class="sc-desc">Nigeria's electricity consumption per person — compared to a global average of 3,500 kWh and 13,000 kWh in the USA</div>
+    </div>
+    <div class="stat-card">
+      <div class="sc-number red">40%</div>
+      <div class="sc-label">Lost in Transmission</div>
+      <div class="sc-desc">Of what little power is generated, 40–55% is lost through technical, commercial, and collection failures</div>
+    </div>
+  </div>
+
+  <div class="body">
+    This dossier strips the problem naked. It examines every dimension — historical, economic, human, 
+    agricultural, technological, psychological, and geopolitical — with the precision and rigor this 
+    crisis demands. Because what is proposed in Dossier II is not a power project. 
+    <strong>It is a national reconstruction.</strong>
+  </div>
+
+  <div class="divider-label">
+    <div class="divider-label-line"></div>
+    <div class="divider-label-text">Context & Foundations</div>
+    <div class="divider-label-line"></div>
+  </div>
+
+  <div class="two-col">
+    <div>
+      <div class="h3">Why This Dossier Exists</div>
+      <p class="body">
+        Before proposing any solution — no matter how advanced, how well-funded, or how brilliantly engineered — 
+        the problem must be fully understood. Not in bullet points. Not in sanitised summaries for comfortable boardrooms. 
+        The full weight of this crisis must be felt, documented, and confronted.
+      </p>
+      <p class="body">
+        Investors, engineers, policymakers, and operators who engage with this project must know exactly 
+        what they are walking into. This is not a clean market opportunity with predictable returns and 
+        familiar risks. This is the reorganisation of a nation's lifeblood. The stakes are civilisational.
+      </p>
+    </div>
+    <div>
+      <div class="h3">The Opportunity Hidden in Crisis</div>
+      <p class="body">
+        Every figure in this document represents both a failure and an opportunity. A country that generates 
+        4,200 MW for 220 million people needs at minimum 80,000 MW to meet basic modern standards. 
+        That gap — <strong>~75,800 MW of unmet demand</strong> — is the largest single energy market 
+        opportunity on the African continent.
+      </p>
+      <p class="body">
+        Whoever builds this grid does not merely profit from Nigeria. They become the backbone of 
+        Africa's most populous nation. They cement a legacy. They unlock a continent.
+      </p>
+    </div>
+  </div>
+</section>
+
+<!-- ══ SECTION 02: HISTORY ══ -->
+<section id="history" class="section">
+  <div class="section-tag">02 — Historical Context</div>
+  <h1 class="h1">128 Years of<br>Electrical Neglect</h1>
+  <p class="lead">
+    Nigeria's relationship with electricity begins in 1896 — and it has been characterised by promise, 
+    promise, and betrayal ever since. Understanding the history is understanding the psychology of the crisis.
+  </p>
+
+  <div class="body">
+    Nigeria was introduced to electricity by its colonial administrators. The colonial government built 
+    infrastructure for its own needs — administrative outposts, elite residential areas, harbours. 
+    When independence came in 1960, the infrastructure was both inadequate and already aging. 
+    What followed was not expansion — it was decades of mismanagement disguised as development.
+  </div>
+
+  <div class="timeline">
+    <div class="tl-era">
+      <div class="tl-era-label">Colonial & Early Independence Era (1896–1971)</div>
+
+      <div class="tl-item">
+        <div class="tl-dot"></div>
+        <div class="tl-year">1896</div>
+        <div class="tl-event">First Electricity in Nigeria — Lagos, Colonial Administration</div>
+        <div class="tl-detail">British colonial authorities install electric lighting along the Marina in Lagos. 
+        Electricity is a colonial privilege. No infrastructure plan for the wider population exists.</div>
+      </div>
+
+      <div class="tl-item">
+        <div class="tl-dot"></div>
+        <div class="tl-year">1929</div>
+        <div class="tl-event">Public Electricity Supply Begins in Lagos</div>
+        <div class="tl-detail">Limited public supply extended to parts of Lagos. Still restricted geographically 
+        and inaccessible to the vast majority of Nigerians.</div>
+      </div>
+
+      <div class="tl-item">
+        <div class="tl-dot"></div>
+        <div class="tl-year">1951</div>
+        <div class="tl-event">Electricity Corporation of Nigeria (ECN) Established</div>
+        <div class="tl-detail">The federal government creates the ECN. A promising institutional foundation — 
+        but chronically underfunded and technically outmatched from day one.</div>
+      </div>
+
+      <div class="tl-item">
+        <div class="tl-dot"></div>
+        <div class="tl-year">1962</div>
+        <div class="tl-event">Niger Dams Authority (NDA) Formed — Kainji Dam Era Begins</div>
+        <div class="tl-detail">Ambitions grow. The Kainji Dam project (completed 1968) promises hydropower 
+        at national scale. 760 MW installed capacity — a genuine milestone, but one that masks 
+        the structural weakness underneath.</div>
+      </div>
+
+      <div class="tl-item">
+        <div class="tl-dot"></div>
+        <div class="tl-year">1972</div>
+        <div class="tl-event">NEPA Born — National Electric Power Authority</div>
+        <div class="tl-detail">ECN and NDA merge into NEPA. The acronym quickly earns its sardonic 
+        Nigerian nickname: <em>"Never Expect Power Always."</em> The joke is not funny — 
+        it is a national wound wearing the costume of humour.</div>
+      </div>
+    </div>
+
+    <div class="tl-era">
+      <div class="tl-era-label">Oil Boom, Military Rule, and Institutional Rot (1972–1999)</div>
+
+      <div class="tl-item">
+        <div class="tl-dot dim"></div>
+        <div class="tl-year">1973–1980</div>
+        <div class="tl-event">Oil Wealth, Missed Window</div>
+        <div class="tl-detail">The oil boom floods Nigeria with petrodollars. With this money, 
+        Nigeria could have built world-class power infrastructure. Instead, funds are 
+        diverted, looted, and mismanaged. The power grid receives cosmetic upgrades 
+        while the real investment goes elsewhere — or disappears entirely.</div>
+      </div>
+
+      <div class="tl-item">
+        <div class="tl-dot dim"></div>
+        <div class="tl-year">1983–1999</div>
+        <div class="tl-event">Military Rule — Systematic Asset Stripping</div>
+        <div class="tl-detail">Successive military governments treat NEPA as a patronage vehicle. 
+        Contracts are awarded to political allies. Equipment is purchased at inflated prices 
+        and often never delivered. The grid infrastructure that existed actively deteriorates 
+        through neglect. By the late 1990s, power generation has collapsed to near crisis levels.</div>
+      </div>
+
+      <div class="tl-item">
+        <div class="tl-dot dim"></div>
+        <div class="tl-year">1991</div>
+        <div class="tl-event">Peak NEPA Capacity — An Ironic Milestone</div>
+        <div class="tl-detail">NEPA briefly peaks at approximately 4,500 MW. This is presented as 
+        achievement. For a nation approaching 90 million people, it is a catastrophic underperformance. 
+        And it is the high watermark the country will take decades to recover to.</div>
+      </div>
+    </div>
+
+    <div class="tl-era">
+      <div class="tl-era-label">Democracy, False Dawns, and Privatisation Failure (1999–2015)</div>
+
+      <div class="tl-item">
+        <div class="tl-dot"></div>
+        <div class="tl-year">1999</div>
+        <div class="tl-event">Democracy Returns — Expectations Soar</div>
+        <div class="tl-detail">The return of civilian rule brings genuine hope for reform. 
+        President Obasanjo promises to fix power. The promises begin what will become 
+        a 25-year cycle: political promises, budgetary allocations, and no meaningful results.</div>
+      </div>
+
+      <div class="tl-item">
+        <div class="tl-dot"></div>
+        <div class="tl-year">2001–2010</div>
+        <div class="tl-event">NIPP Launched — $16 Billion Spent, Little to Show</div>
+        <div class="tl-detail">The National Integrated Power Project (NIPP) is announced with fanfare. 
+        Over $16 billion in public funds are committed to new power plants and transmission 
+        infrastructure. The results are a fraction of what was promised. 
+        The Economic and Financial Crimes Commission (EFCC) will later investigate multiple 
+        contracts under this programme.</div>
+      </div>
+
+      <div class="tl-item">
+        <div class="tl-dot"></div>
+        <div class="tl-year">2005</div>
+        <div class="tl-event">Electric Power Sector Reform Act — The Framework That Failed</div>
+        <div class="tl-detail">The EPSRA provides the legal foundation for privatisation. 
+        In theory: a market-based sector with independent regulators, private generators, 
+        and competitive distribution. In practice: the framework is sound, 
+        but its execution will be catastrophically mismanaged.</div>
+      </div>
+
+      <div class="tl-item">
+        <div class="tl-dot red"></div>
+        <div class="tl-year red">2013</div>
+        <div class="tl-event">Privatisation — The Great Handover That Changed Nothing</div>
+        <div class="tl-detail">PHCN (Power Holding Company of Nigeria, which replaced NEPA) 
+        is unbundled into 6 Generation Companies (GENCOs), 1 Transmission Company (TCN), 
+        and 11 Distribution Companies (DISCOs). Private investors acquire the DISCOs. 
+        The market is born — with crumbling infrastructure, no investment capacity, 
+        metered users well below 50%, and a tariff too low to cover costs. 
+        Investors are handed liabilities dressed as assets.</div>
+      </div>
+    </div>
+
+    <div class="tl-era">
+      <div class="tl-era-label">Post-Privatisation Paralysis (2015–2025)</div>
+
+      <div class="tl-item">
+        <div class="tl-dot red"></div>
+        <div class="tl-year red">2015–2022</div>
+        <div class="tl-event">Repeated Grid Collapses — System Instability Normalized</div>
+        <div class="tl-detail">The national grid collapses multiple times annually. 
+        In some years, total grid shutdowns occur 8–12 times — sudden blackouts 
+        across entire regions that last days. This is not news in Nigeria anymore. 
+        It is weather. It is expected. That normalisation is itself a crisis.</div>
+      </div>
+
+      <div class="tl-item">
+        <div class="tl-dot red"></div>
+        <div class="tl-year red">2022–2024</div>
+        <div class="tl-event">Fuel Subsidy Removal Triggers Energy Cost Explosion</div>
+        <div class="tl-detail">The removal of fuel subsidies in 2023 causes diesel prices to skyrocket. 
+        The cost of powering private generators — already a national burden — 
+        becomes economically destructive. Businesses shut. Households cut generator 
+        hours to a few per day. The informal power economy, which Nigerians had built 
+        as a coping mechanism, is now itself unaffordable.</div>
+      </div>
+
+      <div class="tl-item">
+        <div class="tl-dot teal"></div>
+        <div class="tl-year" style="color:var(--teal)">2025</div>
+        <div class="tl-event">The Inflection Point — Nova Grid Nigeria</div>
+        <div class="tl-detail">After 128 years of electricity in Nigeria, and 64 years of independence, 
+        a different proposition is placed on the table. Not a reform. Not another NIPP. 
+        A complete architectural replacement — a new intelligent grid, built from first principles, 
+        designed for a nation of 300 million by 2050, and powered by the future.</div>
+      </div>
+    </div>
+  </div>
+
+  <div class="callout amber">
+    <p class="callout-text">
+      Nigeria has spent an estimated <strong>$100 billion</strong> on power sector investment 
+      over the past 25 years alone. The country today generates less reliable electricity 
+      than it did in 1991. The money did not build a grid. 
+      <strong>It built a graveyard of incomplete projects and broken promises.</strong>
+    </p>
+    <div class="callout-attr">— Analysis based on Federal Ministry of Power data, NERC reports, and investigative journalism records</div>
+  </div>
+</section>
+
+<!-- ══ SECTION 03: SCALE ══ -->
+<section id="scale" class="section">
+  <div class="section-tag red">03 — Scale of the Crisis</div>
+  <h1 class="h1">The Numbers That<br>Cannot Be Ignored</h1>
+  <p class="lead">
+    Data transforms feeling into fact. The figures below are not estimates crafted for dramatic effect — 
+    they are documented, verifiable, and sourced from World Bank, NERC, IEA, and federal data. 
+    Read them slowly.
+  </p>
+
+  <div class="chart-box">
+    <div class="chart-box-header">
+      <div class="chart-box-title">Nigeria Power Generation History (1970–2024)</div>
+      <div class="chart-box-sub">Installed Capacity vs Actual Generation (MW) — the gap tells the story</div>
+    </div>
+    <div class="chart-wrap tall">
+      <canvas id="chartGenHistory"></canvas>
+    </div>
+  </div>
+
+  <div class="chart-grid-2">
+    <div class="chart-box">
+      <div class="chart-box-header">
+        <div class="chart-box-title">Installed vs Actual vs Needed (2024)</div>
+        <div class="chart-box-sub">Megawatts — the three numbers that define the crisis</div>
+      </div>
+      <div class="chart-wrap">
+        <canvas id="chartCapacityGap"></canvas>
+      </div>
+    </div>
+    <div class="chart-box">
+      <div class="chart-box-header">
+        <div class="chart-box-title">Where Power Is Lost: The Loss Chain</div>
+        <div class="chart-box-sub">Of power generated, how much reaches consumers</div>
+      </div>
+      <div class="chart-wrap">
+        <canvas id="chartLossChain"></canvas>
+      </div>
+    </div>
+  </div>
+
+  <div class="divider"></div>
+
+  <h2 class="h2">Per Capita: How Nigeria Compares</h2>
+  <p class="body">
+    Per capita electricity consumption is one of the most honest metrics of a nation's energy health. 
+    It reveals not just how much power a country generates, but how equitably and effectively 
+    that power reaches its people.
+  </p>
+
+  <div class="chart-box">
+    <div class="chart-box-header">
+      <div class="chart-box-title">Electricity Consumption Per Capita (kWh/year)</div>
+      <div class="chart-box-sub">Nigeria vs African peers vs global benchmarks — 2023 data</div>
+    </div>
+    <div class="chart-wrap tall">
+      <canvas id="chartPerCapita"></canvas>
+    </div>
+  </div>
+
+  <div class="callout red">
+    <p class="callout-text">
+      An average Nigerian consumes approximately <strong>160 kWh of electricity per year</strong>. 
+      A single American refrigerator uses approximately <strong>400–600 kWh per year</strong>. 
+      A nation of 220 million people consumes less electricity per person 
+      than a developed-world household appliance.
+    </p>
+    <div class="callout-attr">— IEA World Energy Statistics, 2023</div>
+  </div>
+
+  <h2 class="h2" style="margin-top:48px">The Generator Economy: A Nation Paying Twice</h2>
+  <p class="body">
+    In the absence of a functional grid, Nigerians — individuals, households, businesses, 
+    hospitals, schools, factories — have built an informal power infrastructure at extraordinary 
+    personal cost. Nigeria is now home to an estimated <strong>60 million generators</strong>, 
+    the largest per-capita generator fleet in the world. This is not resilience. 
+    This is a taxation on survival.
+  </p>
+
+  <div class="stat-grid">
+    <div class="stat-card">
+      <div class="sc-number red">60M+</div>
+      <div class="sc-label">Generators in Nigeria</div>
+      <div class="sc-desc">World's largest private generator fleet. Each one represents a household or business paying for power twice: once in taxes, once in diesel.</div>
+    </div>
+    <div class="stat-card">
+      <div class="sc-number amber">$22B</div>
+      <div class="sc-label">Annual Generator Fuel Cost</div>
+      <div class="sc-desc">Estimated total annual spend on petrol and diesel to power private generators across Nigeria. This money exits the productive economy.</div>
+    </div>
+    <div class="stat-card">
+      <div class="sc-number red">100M<span style="font-size:18px">t</span></div>
+      <div class="sc-label">CO₂ from Generators/Year</div>
+      <div class="sc-desc">Annual carbon emissions from Nigeria's private generator fleet — a catastrophic environmental burden created entirely by grid failure.</div>
+    </div>
+    <div class="stat-card">
+      <div class="sc-number amber">40%</div>
+      <div class="sc-label">SME Operating Costs</div>
+      <div class="sc-desc">The proportion of operating costs that small and medium enterprises in Nigeria spend exclusively on self-generated power.</div>
+    </div>
+  </div>
+
+  <div class="chart-box">
+    <div class="chart-box-header">
+      <div class="chart-box-title">Nigeria's Energy Budget Breakdown</div>
+      <div class="chart-box-sub">Where the power money actually goes — the hidden economy of failure</div>
+    </div>
+    <div class="chart-grid-2" style="margin:0">
+      <div class="chart-wrap">
+        <canvas id="chartEnergyMix"></canvas>
+      </div>
+      <div style="padding: 16px 0;">
+        <div class="progress-list">
+          <div class="prog-item">
+            <div class="prog-header">
+              <span class="prog-label">Natural Gas Plants</span>
+              <span class="prog-value">86%</span>
+            </div>
+            <div class="prog-track">
+              <div class="prog-fill" style="width:86%; background: var(--amber);"></div>
+            </div>
+          </div>
+          <div class="prog-item">
+            <div class="prog-header">
+              <span class="prog-label">Hydropower</span>
+              <span class="prog-value">12%</span>
+            </div>
+            <div class="prog-track">
+              <div class="prog-fill" style="width:12%; background: var(--teal);"></div>
+            </div>
+          </div>
+          <div class="prog-item">
+            <div class="prog-header">
+              <span class="prog-label">Coal / Other Thermal</span>
+              <span class="prog-value">2%</span>
+            </div>
+            <div class="prog-track">
+              <div class="prog-fill" style="width:2%; background: var(--text-4);"></div>
+            </div>
+          </div>
+          <div class="prog-item">
+            <div class="prog-header">
+              <span class="prog-label">Solar / Renewables (grid)</span>
+              <span class="prog-value">&lt;1%</span>
+            </div>
+            <div class="prog-track">
+              <div class="prog-fill" style="width:1%; background: #F59E0B;"></div>
+            </div>
+          </div>
+        </div>
+        <p class="body" style="font-size:12px; margin-top:16px">
+          Nigeria's grid is overwhelmingly dependent on ageing natural gas infrastructure — 
+          plants that routinely operate below 40% capacity due to gas supply shortages, 
+          pipeline vandalism, and equipment failure. The near-total absence of renewable 
+          energy is a policy failure that also represents the largest investment opportunity.
+        </p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ══ SECTION 04: ECONOMIC DEVASTATION ══ -->
+<section id="economic" class="section">
+  <div class="section-tag red">04 — Economic Devastation</div>
+  <h1 class="h1">The GDP That<br>Was Never Born</h1>
+  <p class="lead">
+    Power failure is not an inconvenience. It is an economy killer. In Nigeria, the cost of unreliable 
+    electricity is not a line item — it is woven into every transaction, every factory, every missed 
+    export contract, and every foreign investor who looked at Nigeria and looked away.
+  </p>
+
+  <div class="body">
+    Nigeria's GDP in 2024 stands at approximately <strong>$362 billion</strong>. This figure, impressive 
+    as it sounds, is a shadow of what it should be. Economists and development institutions consistently 
+    estimate that reliable power would add 30–40% to Nigeria's GDP — meaning the country's economy should 
+    be operating at <strong>$470–$500 billion</strong> or more. The missing $100+ billion is not a future 
+    projection. It is money lost every single year.
+  </div>
+
+  <div class="chart-box">
+    <div class="chart-box-header">
+      <div class="chart-box-title">Annual Economic Losses by Sector Due to Power Failure</div>
+      <div class="chart-box-sub">Estimated USD billions lost annually — aggregate across key economic sectors</div>
+    </div>
+    <div class="chart-wrap tall">
+      <canvas id="chartEconomicLoss"></canvas>
+    </div>
+  </div>
+
+  <div class="impact-grid">
+    <div class="impact-card red">
+      <div class="ic-sector">Manufacturing</div>
+      <div class="ic-figure red">$8.4B</div>
+      <div class="ic-desc">Annual losses to Nigeria's manufacturing sector from power interruptions, idle machinery, spoiled materials, and missed production targets.</div>
+    </div>
+    <div class="impact-card amber">
+      <div class="ic-sector">SMEs & Retail</div>
+      <div class="ic-figure amber">$7.1B</div>
+      <div class="ic-desc">Nigeria's 40+ million SMEs, which employ 84% of the workforce, collectively lose billions in productivity and self-power costs annually.</div>
+    </div>
+    <div class="impact-card red">
+      <div class="ic-sector">Agriculture & Cold Chain</div>
+      <div class="ic-figure red">$4.6B</div>
+      <div class="ic-desc">Post-harvest losses driven by non-functional cold storage — food that was grown but never preserved or transported successfully.</div>
+    </div>
+    <div class="impact-card amber">
+      <div class="ic-sector">Telecom & Tech</div>
+      <div class="ic-figure amber">$2.8B</div>
+      <div class="ic-desc">Nigerian telecoms spend over $2.8 billion powering over 40,000 base stations from diesel generators — a cost passed to consumers.</div>
+    </div>
+    <div class="impact-card red">
+      <div class="ic-sector">Healthcare</div>
+      <div class="ic-figure red">$1.9B</div>
+      <div class="ic-desc">Combined cost of failed medical equipment, spoiled pharmaceuticals, emergency generator costs, and lost medical productivity.</div>
+    </div>
+    <div class="impact-card amber">
+      <div class="ic-sector">Foreign Investment Loss</div>
+      <div class="ic-figure amber">$4.5B+</div>
+      <div class="ic-desc">Estimated annual foregone foreign direct investment due to energy infrastructure being cited as a primary deterrent by international businesses.</div>
+    </div>
+  </div>
+
+  <div class="callout amber">
+    <p class="callout-text">
+      In a 2023 survey of multinational companies operating in Nigeria, 
+      <strong>73% cited power supply as their primary operational challenge</strong>, 
+      ranking it above regulatory uncertainty, currency instability, and security concerns combined. 
+      This is the honest investor verdict on Nigeria's energy environment.
+    </p>
+    <div class="callout-attr">— KPMG Nigeria Business Confidence Survey, 2023</div>
+  </div>
+
+  <div class="two-col" style="margin-top:48px">
+    <div>
+      <div class="h3">Manufacturing's Stunted Growth</div>
+      <p class="body">
+        Manufacturing contributes only <strong>9% of Nigeria's GDP</strong> — compared to 20–25% 
+        for comparable emerging economies. The reason is not lack of raw materials, skilled workers, 
+        or market demand. The reason, consistently cited by manufacturers, is power.
+      </p>
+      <p class="body">
+        Dangote Cement — which operates its own captive power plants — is a direct example of 
+        what Nigerian manufacturing can achieve when power is secured. It is also proof of 
+        how much energy the sector burns just to remain operational outside the grid.
+      </p>
+      <p class="body">
+        Across the country, manufacturers operate 8–12 hours per day on grid power, 
+        then switch to generators for the remainder — at costs that make them 
+        uncompetitive in continental and global markets.
+      </p>
+    </div>
+    <div>
+      <div class="h3">The FDI Penalty</div>
+      <p class="body">
+        Nigeria receives far less foreign direct investment per capita than its peers — 
+        despite its market size, natural resources, and demographics. 
+        When international investors explain why, power ranks first or second in virtually every survey.
+      </p>
+      <p class="body">
+        A German automotive manufacturer evaluated Nigeria for regional assembly operations in 2021. 
+        The decision was ultimately made in favour of Morocco. The cited reasons: 
+        energy reliability and cost. Morocco has built a solar and wind infrastructure 
+        that guarantees industrial-grade power. Nigeria could not offer the same.
+      </p>
+      <p class="body">
+        That assembly plant would have employed an estimated <strong>4,200 direct workers</strong> 
+        and supported a supply chain of <strong>12,000+ indirect jobs</strong>.
+        Nigeria lost it to a power line.
+      </p>
+    </div>
+  </div>
+
+  <div class="chart-box" style="margin-top:40px">
+    <div class="chart-box-header">
+      <div class="chart-box-title">FDI vs Power Reliability: African Comparison (2022)</div>
+      <div class="chart-box-sub">Countries with stable power infrastructure consistently attract more FDI per capita</div>
+    </div>
+    <div class="chart-wrap">
+      <canvas id="chartFDIPower"></canvas>
+    </div>
+  </div>
+</section>
+
+<!-- ══ SECTION 05: HUMAN COST ══ -->
+<section id="human" class="section">
+  <div class="section-tag red">05 — The Human Cost</div>
+  <h1 class="h1">220 Million<br>People in the Dark</h1>
+  <p class="lead">
+    Statistics can obscure humanity. Behind every megawatt figure is a person — a child doing 
+    homework by candlelight, a mother who cannot refrigerate her child's medicine, a young man 
+    whose business never got off the ground because the machines kept stopping.
+  </p>
+
+  <div class="body">
+    Of Nigeria's 220+ million people, approximately <strong>85–90 million have no access to electricity at all</strong>. 
+    This is one of the largest energy-excluded populations on earth. These are not people in remote 
+    villages beyond the reach of any grid — many live in cities and peri-urban areas where the 
+    infrastructure exists physically but has not been energised, maintained, or made financially accessible.
+  </div>
+
+  <div class="body">
+    Of those connected to the grid, the majority receive between <strong>4–8 hours of electricity per day</strong>, 
+    typically unpredictably distributed. This is not a service. It is an occasional convenience that 
+    cannot be planned around, cannot be trusted, and cannot support any serious economic or educational activity.
+  </div>
+
+  <div class="chart-grid-2">
+    <div class="chart-box">
+      <div class="chart-box-header">
+        <div class="chart-box-title">Population by Electricity Access Level</div>
+        <div class="chart-box-sub">Nigeria 2024 — access tiers and reliability distribution</div>
+      </div>
+      <div class="chart-wrap">
+        <canvas id="chartAccessTiers"></canvas>
+      </div>
+    </div>
+    <div class="chart-box">
+      <div class="chart-box-header">
+        <div class="chart-box-title">Average Hours of Electricity Per Day</div>
+        <div class="chart-box-sub">Regional variation across Nigeria — geopolitical zones</div>
+      </div>
+      <div class="chart-wrap">
+        <canvas id="chartHoursRegion"></canvas>
+      </div>
+    </div>
+  </div>
+
+  <div class="divider"></div>
+
+  <h2 class="h2">The Indirect Deaths We Don't Count</h2>
+  <p class="body">
+    Power failure kills. It kills slowly, in ways that never make headlines. 
+    Children sleeping under mosquito nets soaked in permethrin that was never properly 
+    stored because there was no refrigeration. Diabetic patients whose insulin 
+    expired at room temperature. Premature babies whose incubators stopped. 
+    Road accidents from kerosene lanterns overturned in the dark.
+  </p>
+
+  <div class="impact-grid">
+    <div class="impact-card red">
+      <div class="ic-sector">Infant Mortality</div>
+      <div class="ic-figure red">72</div>
+      <div class="ic-desc">Deaths per 1,000 live births — Nigeria's infant mortality rate is directly connected to unreliable power in health facilities. Global average: 28.</div>
+    </div>
+    <div class="impact-card red">
+      <div class="ic-sector">Vaccine Storage Failure</div>
+      <div class="ic-figure red">40%</div>
+      <div class="ic-desc">Of public health facilities lack reliable cold storage for vaccines. Power outages compromise vaccines at the point of distribution.</div>
+    </div>
+    <div class="impact-card amber">
+      <div class="ic-sector">Surgeries Interrupted</div>
+      <div class="ic-figure amber">1,000s/yr</div>
+      <div class="ic-desc">Surgeries interrupted annually by power outages in facilities without adequate backup. Each interruption is a potential fatality.</div>
+    </div>
+    <div class="impact-card red">
+      <div class="ic-sector">Generator CO₂ Poisoning</div>
+      <div class="ic-figure red">14,000+</div>
+      <div class="ic-desc">Estimated annual deaths from carbon monoxide poisoning from indoor generator use — people running generators in enclosed spaces due to lack of safe alternatives.</div>
+    </div>
+    <div class="impact-card amber">
+      <div class="ic-sector">Economic Anxiety</div>
+      <div class="ic-figure amber">Pervasive</div>
+      <div class="ic-desc">Power unreliability is a primary driver of economic anxiety and migration intent among working-age Nigerians. It is a documented push factor in the "Japa" phenomenon.</div>
+    </div>
+    <div class="impact-card red">
+      <div class="ic-sector">Women's Safety</div>
+      <div class="ic-figure red">Critical</div>
+      <div class="ic-desc">Darkness directly correlates with elevated rates of sexual violence. Unlit streets, unlit public spaces, and unlit compounds represent safety deficits that fall disproportionately on women and girls.</div>
+    </div>
+  </div>
+
+  <div class="callout red">
+    <p class="callout-text">
+      The "Japa" phenomenon — Nigeria's accelerating brain drain — has a well-documented 
+      energy dimension. When young professionals, doctors, engineers, and entrepreneurs 
+      are surveyed about their reasons for emigrating, <strong>unreliable power and infrastructure 
+      consistently feature in the top five motivations</strong>. Nigeria is losing its most 
+      skilled citizens in part because it cannot keep the lights on.
+    </p>
+    <div class="callout-attr">— NOIPolls Nigeria Brain Drain Study, 2023; British Council Nigeria Survey</div>
+  </div>
+</section>
+
+<!-- ══ SECTION 06: INDUSTRIAL ══ -->
+<section id="industrial" class="section">
+  <div class="section-tag red">06 — Industrial Collapse</div>
+  <h1 class="h1">The Factory<br>That Never Ran</h1>
+  <p class="lead">
+    Every major industrial nation in history industrialised on cheap, reliable power. 
+    Nigeria has neither. The result is a manufacturing sector operating at a fraction of its potential — 
+    a sleeping giant being slowly starved.
+  </p>
+
+  <div class="body">
+    The Aba Industrial Zone, the Kano Industrial Estate, the Lagos-Ogun corridor — 
+    these are names that should be synonymous with African manufacturing excellence. 
+    Instead, they are landscapes of half-functioning factories, dormant machines, 
+    and entrepreneurs making decisions about whether to keep the generator running 
+    or meet payroll.
+  </div>
+
+  <div class="chart-box">
+    <div class="chart-box-header">
+      <div class="chart-box-title">Manufacturing Capacity Utilisation (%) — Nigeria vs Peers</div>
+      <div class="chart-box-sub">Power reliability is the primary determinant of capacity utilisation across industries</div>
+    </div>
+    <div class="chart-wrap">
+      <canvas id="chartManufacturing"></canvas>
+    </div>
+  </div>
+
+  <div class="two-col" style="margin-top:40px">
+    <div>
+      <div class="h3">The Textile Industry: A Case Study in Collapse</div>
+      <p class="body">
+        In the 1970s and 1980s, Nigeria had a thriving textile industry. 
+        Kaduna had over 175 textile mills employing hundreds of thousands of workers. 
+        Today, fewer than 5 mills operate in that city.
+      </p>
+      <p class="body">
+        The industry did not die from lack of cotton (Nigeria grows excellent cotton), 
+        lack of workers, or lack of domestic demand. It died from the cost of 
+        electricity. When a textile mill must power its looms and dyeing equipment 
+        from diesel generators, the operating cost becomes 3–4x that of competitors 
+        in countries with functioning grids.
+      </p>
+      <p class="body">
+        The result: Nigerian textiles cannot compete with imports from China, India, 
+        or Bangladesh — nations where electricity is cheap, reliable, and industrial-grade. 
+        Nigeria now imports cloth that its own factories once made.
+      </p>
+    </div>
+    <div>
+      <div class="h3">The Oil Sector Paradox</div>
+      <p class="body">
+        Nigeria is one of Africa's largest oil producers — a net exporter of petroleum. 
+        Yet it imports refined petroleum products because its refineries cannot function 
+        reliably, and it powers its cities with diesel generators because its gas 
+        power plants are starved of the same gas it exports.
+      </p>
+      <p class="body">
+        Nigeria exports natural gas via the West African Gas Pipeline to Benin, 
+        Togo, and Ghana — while its own power plants sit idle because gas supply 
+        is insufficient, pipelines are vandalised, and commercial agreements 
+        with gas companies are unpaid.
+      </p>
+      <p class="body">
+        This is the defining absurdity of Nigeria's energy crisis: 
+        a nation rich in energy that cannot power itself.
+      </p>
+    </div>
+  </div>
+
+  <div class="callout amber">
+    <p class="callout-text">
+      Nigeria's manufacturing sector employs approximately <strong>2.5 million people</strong>. 
+      With reliable industrial power, credible estimates suggest that figure rises to 
+      <strong>7–10 million within a decade</strong> — driven by restored capacity utilisation, 
+      re-shoring of import production, and new FDI in manufacturing.
+    </p>
+    <div class="callout-attr">— MAN (Manufacturers Association of Nigeria), 2024; McKinsey Africa Economic Growth Report</div>
+  </div>
+</section>
+
+<!-- ══ SECTION 07: AGRICULTURE ══ -->
+<section id="agriculture" class="section">
+  <div class="section-tag red">07 — Agricultural Losses</div>
+  <h1 class="h1">Growing Food<br>That Rots in the Dark</h1>
+  <p class="lead">
+    Nigeria is an agricultural nation. Over 70% of its population engages with agriculture in some capacity. 
+    The country has abundant land, multiple growing seasons, and vast river systems. 
+    It should be feeding the continent. Instead, it imports food it can grow.
+  </p>
+
+  <div class="body">
+    The link between power and agriculture is cold chain infrastructure — the system of 
+    refrigerated storage and transport that keeps food viable from harvest to consumption. 
+    Without reliable electricity, cold chain infrastructure cannot function. Without cold chain, 
+    post-harvest losses in Nigeria reach <strong>40–50% of all perishable produce</strong>.
+  </div>
+
+  <div class="chart-grid-2">
+    <div class="chart-box">
+      <div class="chart-box-header">
+        <div class="chart-box-title">Post-Harvest Food Loss Rate</div>
+        <div class="chart-box-sub">Nigeria vs countries with functioning cold chains (%)</div>
+      </div>
+      <div class="chart-wrap">
+        <canvas id="chartFoodLoss"></canvas>
+      </div>
+    </div>
+    <div class="chart-box">
+      <div class="chart-box-header">
+        <div class="chart-box-title">Value of Annual Agricultural Losses</div>
+        <div class="chart-box-sub">USD billions — food grown but lost before reaching consumers</div>
+      </div>
+      <div class="chart-wrap">
+        <canvas id="chartAgriLoss"></canvas>
+      </div>
+    </div>
+  </div>
+
+  <div class="body" style="margin-top:32px">
+    Nigeria imports <strong>$5+ billion in food annually</strong> — including tomatoes, rice, and poultry 
+    that it has the climate, soil, and agricultural base to produce domestically. 
+    Tomato paste imported from China fills markets in Kano and Lagos, while Nigerian tomatoes 
+    rot on farms in Kano, Jigawa, and Kaduna states because the cold storage facilities 
+    to preserve them simply do not exist at scale.
+  </div>
+
+  <div class="body">
+    Irrigation systems that could enable year-round farming require reliable electricity to operate pumps. 
+    Processing plants that could create value-added agricultural exports need consistent industrial power. 
+    Fish ponds, poultry farms, and greenhouse operations all require refrigeration and controlled 
+    environments that are impossible without reliable electricity. In short: 
+    <strong>the entire agricultural value chain is broken at the power supply point.</strong>
+  </div>
+
+  <div class="callout teal">
+    <p class="callout-text">
+      If Nigeria could reduce its post-harvest losses from 40% to 15% through reliable cold chain infrastructure — 
+      a conservative target achievable with stable power — it would effectively add the equivalent of 
+      <strong>25% more food production to the market</strong> without planting a single additional seed. 
+      The food already exists. It is being destroyed by darkness.
+    </p>
+    <div class="callout-attr">— FAO Nigeria Agricultural Performance Assessment, 2023</div>
+  </div>
+</section>
+
+<!-- ══ SECTION 08: TECHNOLOGY ══ -->
+<section id="technology" class="section">
+  <div class="section-tag red">08 — Technology & Digital Exclusion</div>
+  <h1 class="h1">The Smart Nation<br>That Cannot Stay Online</h1>
+  <p class="lead">
+    Africa's technology ecosystem is growing rapidly. Nigeria's Lagos hosts a vibrant startup scene — 
+    Flutterwave, Paystack, Andela, and hundreds of high-growth companies have emerged. 
+    And yet every single one of them operates on generator power for a significant portion of their working hours.
+  </p>
+
+  <div class="body">
+    Digital economies require two fundamental infrastructural prerequisites: connectivity and power. 
+    Nigeria has made genuine progress on the connectivity side — mobile internet penetration is growing, 
+    fibre networks are expanding, and the country has demonstrable technological talent. 
+    But none of this can reach its potential against the backdrop of a grid that fails 
+    multiple times a day.
+  </div>
+
+  <div class="impact-grid">
+    <div class="impact-card red">
+      <div class="ic-sector">Data Centres</div>
+      <div class="ic-figure red">&lt;30</div>
+      <div class="ic-desc">Nigeria has fewer than 30 functioning Tier III+ data centres — compared to South Africa's 100+ and Egypt's 60+. Nigerian data is largely stored on foreign servers, giving Nigerians no sovereignty over their own digital information.</div>
+    </div>
+    <div class="impact-card amber">
+      <div class="ic-sector">Telecom Base Stations</div>
+      <div class="ic-figure amber">40,000+</div>
+      <div class="ic-desc">Mobile network towers in Nigeria, of which over 85% rely primarily on diesel generators. The telecom industry spends $2+ billion annually on generator fuel — a cost that makes internet access expensive for the end user.</div>
+    </div>
+    <div class="impact-card red">
+      <div class="ic-sector">Startup Failure Rate</div>
+      <div class="ic-figure red">+35%</div>
+      <div class="ic-desc">Nigerian tech startups cite power costs and interruptions as contributing to operating cost premiums of 30–40% above comparable markets — a key factor in early-stage business failure.</div>
+    </div>
+    <div class="impact-card amber">
+      <div class="ic-sector">E-commerce Drag</div>
+      <div class="ic-figure amber">$3.2B</div>
+      <div class="ic-desc">Nigeria's e-commerce sector is estimated to be $3.2 billion below its potential due to power infrastructure constraints affecting logistics, warehousing, and payment systems.</div>
+    </div>
+    <div class="impact-card teal">
+      <div class="ic-sector">Fintech Opportunity</div>
+      <div class="ic-figure teal">$150B</div>
+      <div class="ic-desc">The potential size of Nigeria's digital economy by 2030 IF infrastructure constraints are addressed. Currently realising approximately 30% of this figure.</div>
+    </div>
+    <div class="impact-card amber">
+      <div class="ic-sector">AI & Cloud Deficit</div>
+      <div class="ic-figure amber">Critical</div>
+      <div class="ic-desc">Nigeria cannot host competitive AI infrastructure domestically. AI model training and inference require enormous, stable power — available in Morocco, South Africa, and Egypt, but not reliably in Nigeria.</div>
+    </div>
+  </div>
+
+  <div class="callout red">
+    <p class="callout-text">
+      Nigeria controls less than 2% of Africa's data centre capacity — 
+      despite being home to 16% of Africa's population and Africa's largest economy. 
+      <strong>Nigerian citizens, businesses, and government agencies 
+      store the majority of their data on servers physically located outside Nigeria</strong>. 
+      This is not just a technological failure. It is a sovereignty failure.
+    </p>
+    <div class="callout-attr">— DC Africa Intelligence Report, 2024; Uptime Institute Africa</div>
+  </div>
+</section>
+
+<!-- ══ SECTION 09: HEALTHCARE ══ -->
+<section id="healthcare" class="section">
+  <div class="section-tag red">09 — Healthcare Emergency</div>
+  <h1 class="h1">Where Power Failure<br>Becomes a Death Sentence</h1>
+  <p class="lead">
+    There is no context in which power failure is more literally fatal than healthcare. 
+    In Nigerian hospitals and clinics — public and private — power instability is a 
+    daily clinical crisis that kills patients and demoralises the medical professionals 
+    trying to save them.
+  </p>
+
+  <div class="body">
+    Over <strong>85% of Nigeria's public health facilities</strong> rely on diesel generators 
+    as their primary or only backup power source. The cost of this fuel comes directly from 
+    facility budgets — money that should buy medicines, equipment, and staff. 
+    When generator fuel runs out, as it does frequently, operating theatres go dark, 
+    ventilators stop, and incubators lose temperature.
+  </div>
+
+  <div class="two-col">
+    <div>
+      <div class="h3">The Cold Chain Collapse</div>
+      <p class="body">
+        Nigeria's national immunisation programme is chronically undermined by 
+        vaccine spoilage. Vaccines must be kept within specific temperature ranges 
+        throughout the supply chain — from national stores to local health posts. 
+        Without reliable refrigeration, vaccines degrade before use.
+      </p>
+      <p class="body">
+        The result: children are brought in for vaccination, receive ineffective 
+        vaccines, and parents are told their children are protected when they are not. 
+        Immunisation data looks acceptable on paper. The children are not protected.
+      </p>
+    </div>
+    <div>
+      <div class="h3">Surgical & ICU Crisis</div>
+      <p class="body">
+        Surgeons across Nigeria have documented performing operations in near-darkness 
+        or under the light of mobile phones while waiting for backup generators to 
+        kick in. In facilities where generators exist, they may have a 15–45 second 
+        switchover delay — an eternity in a theatre.
+      </p>
+      <p class="body">
+        Intensive care units without guaranteed power cannot operate ventilators, 
+        monitors, or infusion pumps reliably. Patients in Nigerian ICUs are, 
+        in effect, in a precarious state that would not be permitted by medical 
+        standards in any country with reliable power.
+      </p>
+    </div>
+  </div>
+
+  <div class="stat-grid" style="margin-top:40px">
+    <div class="stat-card">
+      <div class="sc-number red">85%</div>
+      <div class="sc-label">Facilities Power-Insecure</div>
+      <div class="sc-desc">Public health facilities without reliable, guaranteed power supply</div>
+    </div>
+    <div class="stat-card">
+      <div class="sc-number amber">40%</div>
+      <div class="sc-label">Vaccine Cold-Chain Gaps</div>
+      <div class="sc-desc">Health facilities unable to guarantee vaccine cold chain at all times</div>
+    </div>
+    <div class="stat-card">
+      <div class="sc-number red">917</div>
+      <div class="sc-label">Maternal Deaths / 100,000</div>
+      <div class="sc-desc">Nigeria's maternal mortality rate — one of the highest globally, directly linked to facility power and equipment reliability</div>
+    </div>
+    <div class="stat-card">
+      <div class="sc-number amber">30%</div>
+      <div class="sc-label">Of Doctors Have Emigrated</div>
+      <div class="sc-desc">Estimated proportion of doctors trained in Nigeria who now practice abroad — infrastructure failure is consistently cited among departure reasons</div>
+    </div>
+  </div>
+</section>
+
+<!-- ══ SECTION 10: EDUCATION ══ -->
+<section id="education" class="section">
+  <div class="section-tag red">10 — Education Deficit</div>
+  <h1 class="h1">A Generation<br>Learning in the Dark</h1>
+  <p class="lead">
+    The next generation of Nigerians — the engineers, doctors, entrepreneurs, and leaders 
+    who will transform the country — are doing their homework by candlelight or phone screens, 
+    in schools that cannot run computers, and universities where labs are powered by unreliable generators.
+  </p>
+
+  <div class="body">
+    Nigeria has approximately <strong>60 million school-age children</strong>. The quality of their 
+    education is directly constrained by the energy environment in which they study. Schools without 
+    reliable power cannot run computer labs, projectors, or science equipment. Digital learning tools 
+    — which represent the global future of education — are theoretical in an environment without 
+    stable electricity.
+  </div>
+
+  <div class="body">
+    At the tertiary level, Nigerian universities face chronic power instability that disrupts 
+    laboratory experiments, freezes research equipment, and prevents continuous digital connectivity. 
+    Students at the country's most prestigious institutions study in conditions that would not be 
+    considered adequate in many developing nations.
+  </div>
+
+  <div class="impact-grid" style="grid-template-columns: repeat(3,1fr)">
+    <div class="impact-card red">
+      <div class="ic-sector">Primary Schools</div>
+      <div class="ic-figure red">76%</div>
+      <div class="ic-desc">Public primary schools without reliable electricity access for learning activities, including the use of computers and projectors.</div>
+    </div>
+    <div class="impact-card amber">
+      <div class="ic-sector">Night Study Hours Lost</div>
+      <div class="ic-figure amber">4–6hrs</div>
+      <div class="ic-desc">Average productive study hours lost per student per day in households without reliable electricity — representing hundreds of hours per academic year.</div>
+    </div>
+    <div class="impact-card red">
+      <div class="ic-sector">Digital Learning Gap</div>
+      <div class="ic-figure red">Critical</div>
+      <div class="ic-desc">EdTech platforms, e-learning tools, and digital curricula — all of which represent the global frontier of education — require reliable power. Nigeria is structurally excluded.</div>
+    </div>
+  </div>
+
+  <div class="callout amber">
+    <p class="callout-text">
+      Nigeria produced <strong>Phillip Emeagwali</strong>, the computer scientist who designed 
+      one of the first models of massively parallel computing. It produced Nobel laureate 
+      <strong>Wole Soyinka</strong> without internet and with unreliable power. 
+      Imagine what this country's intellectual potential becomes when its 60 million 
+      students can study in the light, on connected devices, in properly equipped laboratories. 
+      That is not a dream. That is what reliable power makes possible.
+    </p>
+    <div class="callout-attr">— Editorial commentary, Nova Grid Nigeria Research Team</div>
+  </div>
+</section>
+
+<!-- ══ SECTION 11: DATA INFRASTRUCTURE ══ -->
+<section id="data-infra" class="section">
+  <div class="section-tag red">11 — Data Infrastructure Deficit</div>
+  <h1 class="h1">Nigeria's Data<br>Lives Abroad</h1>
+  <p class="lead">
+    Data is the oil of the 21st century. Nigeria, a country defined by its relationship with oil, 
+    has failed to secure the new resource. Its digital sovereignty is compromised because 
+    it cannot power the infrastructure to house its own data.
+  </p>
+
+  <div class="body">
+    A functioning data centre requires absolute power reliability — 99.999% uptime (Tier III standard) 
+    or better. This means redundant power feeds, UPS systems, backup generators, and, fundamentally, 
+    a stable grid. Nigeria's grid cannot provide the baseline reliability upon which data centre 
+    infrastructure is built.
+  </div>
+
+  <div class="two-col">
+    <div>
+      <div class="h3">The Sovereignty Problem</div>
+      <p class="body">
+        Nigerian government databases, health records, financial systems, and citizen data 
+        are substantially hosted on servers in Europe, the United States, and South Africa. 
+        This creates legal, security, and sovereignty vulnerabilities that a nation of 
+        Nigeria's strategic importance cannot afford to maintain.
+      </p>
+      <p class="body">
+        The Nigerian Data Protection Act (NDPA) requires data localisation for sensitive categories — 
+        but compliance is impossible without a reliable domestic data centre ecosystem, 
+        which itself is impossible without reliable power.
+      </p>
+    </div>
+    <div>
+      <div class="h3">The Competitive Disadvantage</div>
+      <p class="body">
+        Lagos aspires to be a major African technology hub. Its ambitions compete directly 
+        with Nairobi, Cape Town, and Cairo — all cities with significantly more reliable 
+        power infrastructure. Cloud providers, fintech companies, and AI developers 
+        choosing their African base of operations choose against Lagos at the power evaluation stage.
+      </p>
+      <p class="body">
+        Microsoft, Google, and Amazon Web Services have all announced African data centre 
+        investments — in South Africa and Egypt. Nigeria, Africa's largest economy, 
+        hosts none of these facilities at the requisite scale. 
+        <strong>The grid is the barrier.</strong>
+      </p>
+    </div>
+  </div>
+
+  <div class="stat-grid" style="margin-top:40px">
+    <div class="stat-card">
+      <div class="sc-number red">&lt;30</div>
+      <div class="sc-label">Tier III Data Centres</div>
+      <div class="sc-desc">Nigeria's total functional Tier III equivalent data centres — South Africa has 100+</div>
+    </div>
+    <div class="stat-card">
+      <div class="sc-number amber">0</div>
+      <div class="sc-label">Tier IV Data Centres</div>
+      <div class="sc-desc">Tier IV (99.995% uptime, fully fault-tolerant) data centres in Nigeria. Egypt has 3. South Africa has 5+.</div>
+    </div>
+    <div class="stat-card">
+      <div class="sc-number red">2%</div>
+      <div class="sc-label">of Africa's Data Capacity</div>
+      <div class="sc-desc">Nigeria's share of Africa's total data centre capacity — disproportionately low for Africa's largest economy</div>
+    </div>
+    <div class="stat-card">
+      <div class="sc-number amber">$4.7B</div>
+      <div class="sc-label">Data Centre Opportunity</div>
+      <div class="sc-desc">Estimated market value of the Nigerian data centre sector by 2030 if power infrastructure is resolved — currently largely unrealised</div>
+    </div>
+  </div>
+</section>
+
+<!-- ══ SECTION 12: CORRUPTION ══ -->
+<section id="corruption" class="section">
+  <div class="section-tag red">12 — Corruption & Institutional Decay</div>
+  <h1 class="h1">The Rot<br>Within the Grid</h1>
+  <p class="lead">
+    Nigeria's power crisis is not only an engineering problem. It is a governance problem. 
+    The sector has been systematically looted, defrauded, and corrupted for decades — 
+    and any solution that does not architecturally minimise the role of corruptible human actors 
+    in its operations is doomed to replicate the problem.
+  </p>
+
+  <div class="body">
+    The pattern is consistent across every administration and every institutional structure: 
+    contracts are awarded to connected parties at inflated prices. Equipment is purchased but 
+    never delivered, or delivered and never maintained. Meters are falsified, billing is manipulated, 
+    revenue is siphoned from distribution companies before it can be reinvested. 
+    The system that is supposed to generate, transmit, and distribute power is primarily used 
+    to generate, transmit, and distribute wealth to those closest to it.
+  </div>
+
+  <div class="callout red">
+    <p class="callout-text">
+      The EFCC has over the past decade investigated power sector contracts worth over 
+      <strong>$14 billion</strong> on suspicion of fraud, inflation, and non-delivery. 
+      This is not extraordinary. It is the baseline expectation in a sector where oversight 
+      is weak, technical expertise among regulators is limited, and political patronage 
+      supersedes engineering merit. The new system must be built to be 
+      <strong>corruption-resistant by design</strong>.
+    </p>
+    <div class="callout-attr">— EFCC Annual Reports, 2019–2024; ICIR Nigeria Investigative Journalism</div>
+  </div>
+
+  <div class="two-col">
+    <div>
+      <div class="h3">Commercial Losses: The ATC&C Problem</div>
+      <p class="body">
+        Aggregate Technical, Commercial, and Collection (ATC&C) losses represent the combined 
+        inefficiency of the distribution system. In Nigeria, this figure averages <strong>40–55%</strong> — 
+        meaning that for every unit of power that enters the distribution network, 
+        nearly half is either lost in transmission, delivered but not billed, or billed but not collected.
+      </p>
+      <p class="body">
+        Commercial losses are particularly troubling — they include illegal connections, 
+        meter tampering, and the simple failure to send bills or collect payments. 
+        These are not technical failures. They are institutional failures and, 
+        in many cases, deliberate fraud.
+      </p>
+    </div>
+    <div>
+      <div class="h3">The Meter Deficit</div>
+      <p class="body">
+        As of 2024, Nigeria has a metering gap of over <strong>7 million customers</strong> — 
+        connections that exist but are not metered. Unmetered customers are billed on 
+        "estimated billing" — a system notorious for arbitrary and inflated figures 
+        that bear no relationship to actual consumption.
+      </p>
+      <p class="body">
+        Prepaid meters — the primary accountability tool — are distributed selectively, 
+        often to those with political connections. The metering deficit is not a 
+        supply problem (meters are available). It is a deliberate preservation 
+        of a system that benefits from opacity.
+      </p>
+      <p class="body">
+        <strong>Nova Grid's solution</strong> eliminates this entirely. 
+        Every connection is smart-metered from installation. The meter is software, 
+        not hardware — it cannot be physically tampered with.
+      </p>
+    </div>
+  </div>
+
+  <div class="chart-box">
+    <div class="chart-box-header">
+      <div class="chart-box-title">ATC&C Losses: Nigeria vs Reform Targets vs Best Practice</div>
+      <div class="chart-box-sub">Aggregate Technical, Commercial & Collection losses (%) — what good looks like</div>
+    </div>
+    <div class="chart-wrap">
+      <canvas id="chartLosses"></canvas>
+    </div>
+  </div>
+</section>
+
+<!-- ══ SECTION 13: CONTINENTAL IMPACT ══ -->
+<section id="continental" class="section">
+  <div class="section-tag red">13 — Continental Impact</div>
+  <h1 class="h1">Nigeria's Crisis<br>Is Africa's Crisis</h1>
+  <p class="lead">
+    Nigeria is not an island. It is the economic anchor of West Africa and one of the defining 
+    forces on the African continent. Its power crisis does not stop at its borders — it radiates 
+    outward, constraining regional integration, suppressing the West African power pool, 
+    and setting a ceiling on what the continent can achieve.
+  </p>
+
+  <div class="body">
+    The Economic Community of West African States (ECOWAS) has an explicit vision of regional 
+    energy integration through the West African Power Pool (WAPP). The WAPP is designed 
+    to allow countries to trade electricity across borders — exporting surplus, importing 
+    deficit, and building continental energy security. Nigeria's grid instability makes 
+    it a liability in this system rather than an anchor.
+  </div>
+
+  <div class="chart-box">
+    <div class="chart-box-header">
+      <div class="chart-box-title">Africa Electricity Access & Reliability Landscape (2024)</div>
+      <div class="chart-box-sub">Percentage of population with reliable electricity access — selected African nations</div>
+    </div>
+    <div class="chart-wrap tall">
+      <canvas id="chartAfrica"></canvas>
+    </div>
+  </div>
+
+  <div class="two-col" style="margin-top:40px">
+    <div>
+      <div class="h3">The ECOWAS Power Deficit</div>
+      <p class="body">
+        West Africa collectively generates approximately 22,000 MW of power for a 
+        combined population of 420 million — one of the lowest per-capita electricity 
+        densities in the world. Nigeria accounts for the majority of this capacity 
+        but also the majority of the deficit, given its population size.
+      </p>
+      <p class="body">
+        WAPP's vision of regional power interconnection is technically sound — 
+        it works beautifully in Southern Africa (SAPP) and is emerging in East Africa (EAPP). 
+        In West Africa, progress has been slow precisely because the anchor country's grid 
+        is unreliable.
+      </p>
+    </div>
+    <div>
+      <div class="h3">The Export Opportunity</div>
+      <p class="body">
+        A functional Nigerian grid with surplus capacity is not just a domestic benefit — 
+        it is a regional export opportunity. Benin, Niger, Togo, and Ghana all import 
+        electricity from neighbouring countries. Nigeria, with its gas reserves and 
+        solar potential, could become the dominant regional power exporter.
+      </p>
+      <p class="body">
+        Electricity exports from a reformed Nigerian grid could generate 
+        <strong>$3–8 billion per year</strong> in foreign exchange — rivalling major 
+        agricultural exports. The grid is not just a utility. Built correctly, 
+        it is a geopolitical instrument and an economic lever.
+      </p>
+    </div>
+  </div>
+
+  <div class="callout teal">
+    <p class="callout-text">
+      If Africa is to achieve any version of its continental development aspirations — 
+      the African Union's Agenda 2063, the AfCFTA's potential for intra-African trade, 
+      the digital economy ambitions outlined in multiple national strategies — 
+      <strong>the Nigerian grid must be fixed</strong>. 
+      You cannot industrialise 16% of a continent and expect the continent to grow. 
+      Nigeria's grid is not a local infrastructure problem. It is a continental bottleneck.
+    </p>
+    <div class="callout-attr">— African Development Bank, Continental Energy Outlook 2023</div>
+  </div>
+</section>
+
+<!-- ══ SECTION 14: PSYCHOLOGY ══ -->
+<section id="psychology" class="section">
+  <div class="section-tag red">14 — The Psychology of Darkness</div>
+  <h1 class="h1">What Decades<br>of Darkness Does<br>to a Nation's Soul</h1>
+  <p class="lead">
+    The most under-documented dimension of Nigeria's power crisis is its psychological impact. 
+    Decades of broken promises, false dawns, and systemic disappointment have produced 
+    a particular form of collective trauma that shapes how Nigerians relate to institutions, 
+    to investment, and to the concept of the state itself.
+  </p>
+
+  <div class="body">
+    Nigerians are extraordinarily resilient. The entrepreneurship, the creativity, 
+    the tenacity — the ability to "hustle" — is not a natural characteristic. 
+    It is an adaptation. When the state fails to provide, individuals adapt. 
+    They buy generators. They dig wells. They form community security. 
+    They build parallel systems to replace the official ones.
+  </div>
+
+  <div class="body">
+    This resilience is admirable. But it has a cost: a deep, culturally embedded distrust of 
+    institutions and public promises. When a Nigerian hears that a new power reform is coming, 
+    the default response is scepticism — because the default experience is disappointment. 
+    This is not cynicism. It is a rational response to a 60-year track record.
+  </div>
+
+  <div class="callout amber">
+    <p class="callout-text">
+      "The darkness has become part of our identity. We tell jokes about NEPA because 
+      if we cried every time the power went out, we would never stop crying. 
+      But underneath the jokes is something real — a feeling that the country 
+      does not care whether you have light or not. That the system is working perfectly, 
+      just not for you."
+    </p>
+    <div class="callout-attr">— Lagos-based entrepreneur, 34, speaking in documentary interview</div>
+  </div>
+
+  <div class="two-col">
+    <div>
+      <div class="h3">The Normalisation of Failure</div>
+      <p class="body">
+        Perhaps the most dangerous consequence of decades of power failure is the 
+        normalisation of unacceptable conditions. Children growing up today in Nigeria 
+        have never known reliable power — many do not know what it feels like. 
+        Their ambitions are shaped around the assumption of unreliability.
+      </p>
+      <p class="body">
+        Entrepreneurs plan for generator costs from day one — not as a contingency, 
+        but as a certainty. This pre-emptive adaptation is economically catastrophic: 
+        businesses are structured around failure before they begin, allocating 
+        resources to resilience that should go into growth.
+      </p>
+    </div>
+    <div>
+      <div class="h3">The Trust Deficit & Nova Grid's Obligation</div>
+      <p class="body">
+        Any new power infrastructure project in Nigeria faces an extraordinary trust deficit. 
+        Nigerians have been promised power — reliably, repeatedly, and at enormous public expense — 
+        and received disappointment. The burden of proof for Nova Grid is not technical. 
+        <strong>It is existential.</strong>
+      </p>
+      <p class="body">
+        This is why the platform design, the customer interface, and the real-time 
+        transparency features of the Nova Grid system are not optional extras. 
+        They are trust-building mechanisms. A Nigeria that can see its grid in real time, 
+        monitor its own consumption, and hold the system accountable through data — 
+        is a Nigeria that can begin to rebuild its relationship with its infrastructure.
+      </p>
+    </div>
+  </div>
+</section>
+
+<!-- ══ SECTION 15: SOLUTION PREVIEW ══ -->
+<section id="solution-preview" class="section">
+  <div class="section-tag teal">15 — The Path Forward</div>
+  <h1 class="h1">This Darkness<br>Has an Architect.<br>So Does the Light.</h1>
+  <p class="lead">
+    The documentation of a crisis this deep is not an exercise in despair. 
+    It is the foundation upon which a real solution must be built. 
+    Every problem documented in this dossier has a corresponding solution — 
+    engineered, systemic, and already in development.
+  </p>
+
+  <div class="solution-strip">
+    <div class="section-tag teal" style="margin-bottom:24px">Dossier II Preview — The Solution</div>
+    <h2 class="h2" style="color:var(--teal); letter-spacing:-1px">NOVA GRID: The Architecture</h2>
+    <p class="lead" style="margin-bottom:40px">
+      Dossier II details the complete engineering and operational blueprint for Nigeria's 
+      next-generation intelligent power grid — from generation to meter to platform.
+    </p>
+
+    <div class="impact-grid">
+      <div class="impact-card teal" style="border-top-color:var(--teal)">
+        <div class="ic-sector">Generation Target</div>
+        <div class="ic-figure teal">40,000<span style="font-size:16px">MW</span></div>
+        <div class="ic-desc">Phase I target — sufficient for 220 million Nigerians at an improved but realistic per-capita baseline, with export capacity for West Africa.</div>
+      </div>
+      <div class="impact-card teal">
+        <div class="ic-sector">Primary Source</div>
+        <div class="ic-figure teal">Solar +<br><span style="font-size:18px">Hybrid</span></div>
+        <div class="ic-desc">Utility-scale solar as the primary generation source — backed by natural gas, wind, and hydro for baseload and peaking needs. Nigeria sits in one of the world's best solar belts.</div>
+      </div>
+      <div class="impact-card teal">
+        <div class="ic-sector">The NEXUS System</div>
+        <div class="ic-figure teal">AI<span style="font-size:18px">+ML</span></div>
+        <div class="ic-desc">The intelligent brain of the grid — an AI-powered management system that routes power, detects faults, prevents theft, balances load, and needs minimal human oversight.</div>
+      </div>
+    </div>
+
+    <div class="three-col" style="display:grid; grid-template-columns:1fr 1fr 1fr; gap:16px; margin-top:24px">
+      <div>
+        <div class="tag teal">Smart Metering</div>
+        <p style="font-size:13px; color:var(--text-3); margin-top:8px; line-height:1.5">Every connection software-metered from day one. No physical meter to tamper with. Fraud eliminated architecturally.</p>
+      </div>
+      <div>
+        <div class="tag teal">Real-Time Routing</div>
+        <p style="font-size:13px; color:var(--text-3); margin-top:8px; line-height:1.5">Intelligent load-balancing across the entire grid, eliminating regional overloads and identifying faults within seconds.</p>
+      </div>
+      <div>
+        <div class="tag teal">Customer Platform</div>
+        <p style="font-size:13px; color:var(--text-3); margin-top:8px; line-height:1.5">A consumer-grade mobile and web platform giving every Nigerian real-time visibility into their power consumption and costs.</p>
+      </div>
+    </div>
+  </div>
+
+  <div class="callout teal">
+    <p class="callout-text">
+      Dangote Group's announced ambition of a <strong>20,000 MW power investment</strong> 
+      aligns precisely with Phase I of the Nova Grid architecture. This is not coincidence — 
+      it is convergence. The largest private investor in Nigeria's history has independently 
+      arrived at the same conclusion this dossier documents: <strong>the grid must be rebuilt, 
+      not reformed.</strong>
+    </p>
+    <div class="callout-attr">— Reference: Aliko Dangote, interview with IFC Managing Director Makhtar Diop, 2024</div>
+  </div>
+
+  <div class="body" style="margin-top:32px">
+    The investment required is significant. The returns — financial, economic, social, 
+    and geopolitical — are transformational. No infrastructure project in Nigerian history 
+    has offered anything close to the scale of return that a rebuilt, intelligent, 
+    sustainable national grid represents.
+  </div>
+
+  <div class="body">
+    What follows — in Dossier II — is the engineering detail, the grid architecture, 
+    the technology stack, the site locations, the phased rollout, the financial model, 
+    and the intelligent system that holds it all together. This dossier has established 
+    the problem with precision. The next builds the solution with equal precision.
+  </div>
+</section>
+
+<!-- ══ SECTION 16: CONCLUSION ══ -->
+<section id="conclusion" class="section">
+  <div class="section-tag">16 — Conclusion</div>
+  <h1 class="h1">The Darkness<br>Is the Opportunity</h1>
+
+  <p class="lead">
+    Every figure in this document is a failure. It is also an invitation. 
+    Because where infrastructure has failed this completely and for this long, 
+    the market for its replacement is not incremental — it is total.
+  </p>
+
+  <div class="body">
+    Nigeria does not need a better grid. It needs a first grid — one designed for the 21st century, 
+    not patched from the 20th. The country does not need another reform programme layered onto 
+    systems that have already absorbed $100 billion in reform spending without meaningful result. 
+    It needs an architectural reset — a clean sheet, first-principles approach to building 
+    power infrastructure for a nation that will be home to 400 million people by 2050.
+  </div>
+
+  <div class="body">
+    The NOVA GRID Nigeria project is that reset. It is not proposed as an aspiration. 
+    It is proposed as an engineering plan, a business model, and a national imperative — 
+    supported by data, designed by professionals, and built for the specific conditions, 
+    challenges, and opportunities of the Nigerian context.
+  </div>
+
+  <div class="callout amber" style="margin:48px 0">
+    <p class="callout-text">
+      The investor who backs this project does not merely earn a return. 
+      They power the economic engine of Africa's most populous nation. 
+      They light the labs where Nigeria's next scientists are trained. 
+      They keep the operating theatre running during the surgery that saves a life. 
+      They give a mother the refrigerator that keeps her child's medicine effective. 
+      <strong>They turn the lights on for 220 million people.</strong><br><br>
+      The darkness is the opportunity. And the opportunity is generational.
+    </p>
+    <div class="callout-attr">— Nova Grid Nigeria, Project Summary — Dossier I Conclusion</div>
+  </div>
+
+  <div class="stat-grid">
+    <div class="stat-card">
+      <div class="sc-number teal">Phase I</div>
+      <div class="sc-label">Target: 2026–2032</div>
+      <div class="sc-desc">Build 40,000 MW of generation capacity, deploy NEXUS intelligent grid management system, and achieve 70% metered reliable coverage</div>
+    </div>
+    <div class="stat-card">
+      <div class="sc-number teal">Phase II</div>
+      <div class="sc-label">Target: 2032–2040</div>
+      <div class="sc-desc">Expand to 80,000 MW, achieve near-universal coverage, begin West African export programme, and achieve full renewable transition</div>
+    </div>
+    <div class="stat-card">
+      <div class="sc-number teal">Phase III</div>
+      <div class="sc-label">Target: 2040–2050</div>
+      <div class="sc-desc">Nigeria as Africa's largest power exporter. Full digital sovereignty through domestic data infrastructure. A grid that powers a continent.</div>
+    </div>
+    <div class="stat-card">
+      <div class="sc-number amber">Dossier II</div>
+      <div class="sc-label">The Architecture</div>
+      <div class="sc-desc">The next dossier presents the complete engineering blueprint, grid architecture, technology systems, financial projections, and phased implementation plan</div>
+    </div>
+  </div>
+
+  <div class="footnote">
+    <strong>NOVA GRID NIGERIA</strong> — Dossier I: The Crisis · Document Reference: NG-PWR-001 v1.0<br>
+    Data Sources: World Bank Group, International Energy Agency (IEA), Nigerian Electricity Regulatory Commission (NERC), 
+    Federal Ministry of Power Nigeria, African Development Bank, KPMG Nigeria, Manufacturers Association of Nigeria (MAN), 
+    NOIPolls Nigeria, McKinsey Global Institute, UNDP Nigeria, FAO, EFCC Annual Reports, DC Africa Intelligence, Uptime Institute.<br><br>
+    All figures are based on published, publicly available data from reputable institutional sources. 
+    Some estimates are synthesis figures derived from multiple source triangulation. 
+    This document is intended for restricted circulation to qualified investors and technical evaluators only.
+  </div>
+</section>
+
+</main>
+
+<!-- ── PAGE INDICATOR ── -->
+<div class="page-ind" id="pageInd">Section 00 / 16</div>
+
+<script>
+// ══ CHART DEFAULTS ══
+Chart.defaults.color = '#9AA8C7';
+Chart.defaults.borderColor = 'rgba(255,255,255,0.06)';
+Chart.defaults.font.family = "'IBM Plex Mono', monospace";
+
+const AMBER = '#F59E0B';
+const AMBER_DIM = 'rgba(245,158,11,0.15)';
+const RED = '#FF3B30';
+const RED_DIM = 'rgba(255,59,48,0.15)';
+const TEAL = '#00F5D4';
+const TEAL_DIM = 'rgba(0,245,212,0.15)';
+const BLUE = '#3B82F6';
+const BLUE_DIM = 'rgba(59,130,246,0.15)';
+const GREY = 'rgba(255,255,255,0.1)';
+
+// CHART 1: Generation History
+new Chart(document.getElementById('chartGenHistory'), {
+  type: 'line',
+  data: {
+    labels: ['1970','1975','1980','1985','1990','1995','2000','2005','2010','2013','2015','2017','2019','2021','2023','2024'],
+    datasets: [
+      {
+        label: 'Installed Capacity (MW)',
+        data: [1200, 2500, 4800, 5200, 5900, 5800, 6000, 7200, 8900, 12500, 12800, 13000, 12900, 13000, 13014, 13014],
+        borderColor: AMBER,
+        backgroundColor: AMBER_DIM,
+        fill: true,
+        tension: 0.4,
+        borderWidth: 2,
+        pointRadius: 3,
+        pointBackgroundColor: AMBER,
+      },
+      {
+        label: 'Actual Generation (MW)',
+        data: [800, 1200, 2800, 2600, 4500, 3200, 2400, 3100, 3800, 4500, 3500, 3800, 4200, 3600, 4100, 4200],
+        borderColor: RED,
+        backgroundColor: RED_DIM,
+        fill: true,
+        tension: 0.4,
+        borderWidth: 2,
+        pointRadius: 3,
+        pointBackgroundColor: RED,
+      }
+    ]
+  },
+  options: {
+    responsive: true,
+    maintainAspectRatio: false,
+    plugins: {
+      legend: { position: 'top', labels: { usePointStyle: true, padding: 20, font: { size: 11 } } },
+      tooltip: { mode: 'index', intersect: false }
+    },
+    scales: {
+      x: { grid: { color: 'rgba(255,255,255,0.04)' } },
+      y: {
+        grid: { color: 'rgba(255,255,255,0.04)' },
+        title: { display: true, text: 'Megawatts (MW)', font: { size: 10 } }
+      }
+    }
+  }
+});
+
+// CHART 2: Capacity Gap
+new Chart(document.getElementById('chartCapacityGap'), {
+  type: 'bar',
+  data: {
+    labels: ['Installed Capacity', 'Actual Generation', 'Minimum Required', 'Optimal Target'],
+    datasets: [{
+      label: 'Megawatts (MW)',
+      data: [13014, 4200, 40000, 80000],
+      backgroundColor: [AMBER_DIM, RED_DIM, TEAL_DIM, BLUE_DIM],
+      borderColor: [AMBER, RED, TEAL, BLUE],
+      borderWidth: 2,
+      borderRadius: 6,
+    }]
+  },
+  options: {
+    responsive: true,
+    maintainAspectRatio: false,
+    plugins: { legend: { display: false } },
+    scales: {
+      x: { grid: { display: false } },
+      y: {
+        grid: { color: 'rgba(255,255,255,0.04)' },
+        title: { display: true, text: 'MW', font: { size: 10 } }
+      }
+    }
+  }
+});
+
+// CHART 3: Loss Chain (Doughnut)
+new Chart(document.getElementById('chartLossChain'), {
+  type: 'doughnut',
+  data: {
+    labels: ['Reaches Consumers (paid)', 'Technical Losses', 'Commercial Losses', 'Collection Losses'],
+    datasets: [{
+      data: [50, 20, 15, 15],
+      backgroundColor: [TEAL_DIM, RED_DIM, AMBER_DIM, BLUE_DIM],
+      borderColor: [TEAL, RED, AMBER, BLUE],
+      borderWidth: 2,
+      hoverOffset: 8,
+    }]
+  },
+  options: {
+    responsive: true,
+    maintainAspectRatio: false,
+    cutout: '65%',
+    plugins: {
+      legend: { position: 'bottom', labels: { usePointStyle: true, padding: 12, font: { size: 10 } } }
+    }
+  }
+});
+
+// CHART 4: Per Capita Comparison
+new Chart(document.getElementById('chartPerCapita'), {
+  type: 'bar',
+  data: {
+    labels: ['USA','Germany','South Africa','Morocco','Egypt','Ghana','Kenya','Nigeria','Chad'],
+    datasets: [{
+      label: 'kWh per capita per year',
+      data: [13000, 7000, 4200, 900, 2000, 450, 200, 160, 30],
+      backgroundColor: [GREY,GREY,GREY,GREY,GREY,GREY,GREY,AMBER_DIM,RED_DIM],
+      borderColor: [GREY,GREY,GREY,GREY,GREY,GREY,GREY,AMBER,RED],
+      borderWidth: [1,1,1,1,1,1,1,2,2],
+      borderRadius: 4,
+    }]
+  },
+  options: {
+    indexAxis: 'y',
+    responsive: true,
+    maintainAspectRatio: false,
+    plugins: { legend: { display: false } },
+    scales: {
+      x: {
+        grid: { color: 'rgba(255,255,255,0.04)' },
+        title: { display: true, text: 'kWh per capita per year', font: { size: 10 } }
+      },
+      y: { grid: { display: false } }
+    }
+  }
+});
+
+// CHART 5: Energy Mix (Doughnut)
+new Chart(document.getElementById('chartEnergyMix'), {
+  type: 'doughnut',
+  data: {
+    labels: ['Natural Gas', 'Hydro', 'Coal/Other', 'Renewables (<1%)'],
+    datasets: [{
+      data: [86, 12, 2, 0.5],
+      backgroundColor: [AMBER_DIM, TEAL_DIM, GREY, BLUE_DIM],
+      borderColor: [AMBER, TEAL, 'rgba(255,255,255,0.2)', BLUE],
+      borderWidth: 2,
+      hoverOffset: 8,
+    }]
+  },
+  options: {
+    responsive: true,
+    maintainAspectRatio: false,
+    cutout: '60%',
+    plugins: {
+      legend: { position: 'bottom', labels: { usePointStyle: true, padding: 10, font: { size: 10 } } }
+    }
+  }
+});
+
+// CHART 6: Economic Loss by Sector
+new Chart(document.getElementById('chartEconomicLoss'), {
+  type: 'bar',
+  data: {
+    labels: ['Manufacturing','SMEs & Retail','Foreign Investment Loss','Agriculture & Cold Chain','Telecom','Healthcare','Education'],
+    datasets: [{
+      label: 'Annual Losses (USD Billions)',
+      data: [8.4, 7.1, 4.5, 4.6, 2.8, 1.9, 1.2],
+      backgroundColor: [RED_DIM,AMBER_DIM,RED_DIM,AMBER_DIM,BLUE_DIM,RED_DIM,AMBER_DIM],
+      borderColor: [RED,AMBER,RED,AMBER,BLUE,RED,AMBER],
+      borderWidth: 2,
+      borderRadius: 6,
+    }]
+  },
+  options: {
+    responsive: true,
+    maintainAspectRatio: false,
+    plugins: { legend: { display: false } },
+    scales: {
+      x: { grid: { display: false }, ticks: { font: { size: 10 } } },
+      y: {
+        grid: { color: 'rgba(255,255,255,0.04)' },
+        title: { display: true, text: 'USD Billions / Year', font: { size: 10 } }
+      }
+    }
+  }
+});
+
+// CHART 7: FDI vs Power
+new Chart(document.getElementById('chartFDIPower'), {
+  type: 'bar',
+  data: {
+    labels: ['Morocco','South Africa','Egypt','Ghana','Kenya','Nigeria'],
+    datasets: [
+      {
+        label: 'FDI Inflows ($B, 2022)',
+        data: [2.4, 9.1, 8.9, 2.2, 2.1, 4.3],
+        backgroundColor: TEAL_DIM,
+        borderColor: TEAL,
+        borderWidth: 2,
+        borderRadius: 4,
+      },
+      {
+        label: 'Power Reliability Score (/10)',
+        data: [7.1, 6.8, 6.5, 5.2, 4.8, 2.1],
+        backgroundColor: AMBER_DIM,
+        borderColor: AMBER,
+        borderWidth: 2,
+        borderRadius: 4,
+      }
+    ]
+  },
+  options: {
+    responsive: true,
+    maintainAspectRatio: false,
+    plugins: { legend: { position: 'top', labels: { usePointStyle: true, font: { size: 11 } } } },
+    scales: {
+      x: { grid: { display: false } },
+      y: { grid: { color: 'rgba(255,255,255,0.04)' } }
+    }
+  }
+});
+
+// CHART 8: Access Tiers (Doughnut)
+new Chart(document.getElementById('chartAccessTiers'), {
+  type: 'doughnut',
+  data: {
+    labels: ['No electricity access','Grid: <4hr/day','Grid: 4–8hr/day','Grid: 8–16hr/day','Reliable: 16+hr/day'],
+    datasets: [{
+      data: [39, 18, 25, 13, 5],
+      backgroundColor: [RED_DIM,'rgba(245,158,11,0.2)',AMBER_DIM,TEAL_DIM,'rgba(0,245,212,0.3)'],
+      borderColor: [RED,'#D97706',AMBER,TEAL,'rgba(0,245,212,0.8)'],
+      borderWidth: 2,
+      hoverOffset: 8,
+    }]
+  },
+  options: {
+    responsive: true,
+    maintainAspectRatio: false,
+    cutout: '60%',
+    plugins: {
+      legend: { position: 'bottom', labels: { usePointStyle: true, padding: 10, font: { size: 10 } } }
+    }
+  }
+});
+
+// CHART 9: Hours per region
+new Chart(document.getElementById('chartHoursRegion'), {
+  type: 'bar',
+  data: {
+    labels: ['Abuja FCT','Lagos','Port Harcourt','Enugu','Ibadan','Kano','Kaduna','Maiduguri','Sokoto'],
+    datasets: [{
+      label: 'Avg hrs electricity/day',
+      data: [6.5, 5.0, 4.8, 4.2, 3.8, 3.5, 3.2, 2.8, 2.1],
+      backgroundColor: (ctx) => {
+        const v = ctx.parsed.y;
+        return v >= 6 ? TEAL_DIM : v >= 4 ? AMBER_DIM : RED_DIM;
+      },
+      borderColor: (ctx) => {
+        const v = ctx.parsed.y;
+        return v >= 6 ? TEAL : v >= 4 ? AMBER : RED;
+      },
+      borderWidth: 2,
+      borderRadius: 4,
+    }]
+  },
+  options: {
+    indexAxis: 'y',
+    responsive: true,
+    maintainAspectRatio: false,
+    plugins: { legend: { display: false } },
+    scales: {
+      x: {
+        grid: { color: 'rgba(255,255,255,0.04)' },
+        max: 12,
+        title: { display: true, text: 'Hours per day', font: { size: 10 } }
+      },
+      y: { grid: { display: false }, ticks: { font: { size: 10 } } }
+    }
+  }
+});
+
+// CHART 10: Manufacturing capacity utilization
+new Chart(document.getElementById('chartManufacturing'), {
+  type: 'bar',
+  data: {
+    labels: ['Germany','South Korea','China','South Africa','Egypt','Ghana','Nigeria (with gen.)','Nigeria (grid only)'],
+    datasets: [{
+      label: 'Capacity Utilisation (%)',
+      data: [85, 82, 78, 71, 65, 58, 52, 24],
+      backgroundColor: [GREY,GREY,GREY,GREY,GREY,GREY,AMBER_DIM,RED_DIM],
+      borderColor: [GREY,GREY,GREY,GREY,GREY,GREY,AMBER,RED],
+      borderWidth: [1,1,1,1,1,1,2,2],
+      borderRadius: 4,
+    }]
+  },
+  options: {
+    responsive: true,
+    maintainAspectRatio: false,
+    plugins: { legend: { display: false } },
+    scales: {
+      x: { grid: { display: false }, ticks: { font: { size: 10 } } },
+      y: {
+        grid: { color: 'rgba(255,255,255,0.04)' },
+        max: 100,
+        title: { display: true, text: '% Capacity Utilised', font: { size: 10 } }
+      }
+    }
+  }
+});
+
+// CHART 11: Food Loss
+new Chart(document.getElementById('chartFoodLoss'), {
+  type: 'bar',
+  data: {
+    labels: ['Netherlands','USA','China','Brazil','South Africa','Kenya','Ghana','Nigeria'],
+    datasets: [{
+      label: 'Post-Harvest Loss Rate (%)',
+      data: [4, 8, 12, 18, 22, 28, 32, 45],
+      backgroundColor: (ctx) => {
+        const v = ctx.parsed.y;
+        return v < 15 ? TEAL_DIM : v < 30 ? AMBER_DIM : RED_DIM;
+      },
+      borderColor: (ctx) => {
+        const v = ctx.parsed.y;
+        return v < 15 ? TEAL : v < 30 ? AMBER : RED;
+      },
+      borderWidth: 2,
+      borderRadius: 4,
+    }]
+  },
+  options: {
+    responsive: true,
+    maintainAspectRatio: false,
+    plugins: { legend: { display: false } },
+    scales: {
+      x: { grid: { display: false } },
+      y: {
+        grid: { color: 'rgba(255,255,255,0.04)' },
+        title: { display: true, text: 'Loss Rate (%)', font: { size: 10 } }
+      }
+    }
+  }
+});
+
+// CHART 12: Agricultural Loss by Category
+new Chart(document.getElementById('chartAgriLoss'), {
+  type: 'doughnut',
+  data: {
+    labels: ['Tomatoes & Vegetables','Grains & Cereals','Fruits','Dairy & Protein','Fish & Seafood'],
+    datasets: [{
+      data: [1.8, 1.2, 0.8, 0.5, 0.3],
+      backgroundColor: [RED_DIM, AMBER_DIM, TEAL_DIM, BLUE_DIM, GREY],
+      borderColor: [RED, AMBER, TEAL, BLUE, 'rgba(255,255,255,0.2)'],
+      borderWidth: 2,
+      hoverOffset: 8,
+    }]
+  },
+  options: {
+    responsive: true,
+    maintainAspectRatio: false,
+    cutout: '60%',
+    plugins: {
+      legend: { position: 'bottom', labels: { usePointStyle: true, padding: 10, font: { size: 10 } } }
+    }
+  }
+});
+
+// CHART 13: ATC&C Losses
+new Chart(document.getElementById('chartLosses'), {
+  type: 'bar',
+  data: {
+    labels: ['Singapore','Germany','South Africa','Morocco','Ghana','Nigeria (Target)','Nigeria (Current)'],
+    datasets: [{
+      label: 'ATC&C Losses (%)',
+      data: [2, 5, 12, 15, 22, 15, 48],
+      backgroundColor: [TEAL_DIM,TEAL_DIM,TEAL_DIM,AMBER_DIM,AMBER_DIM,TEAL_DIM,RED_DIM],
+      borderColor: [TEAL,TEAL,TEAL,AMBER,AMBER,TEAL,RED],
+      borderWidth: 2,
+      borderRadius: 4,
+    }]
+  },
+  options: {
+    responsive: true,
+    maintainAspectRatio: false,
+    plugins: { legend: { display: false } },
+    scales: {
+      x: { grid: { display: false } },
+      y: {
+        grid: { color: 'rgba(255,255,255,0.04)' },
+        max: 60,
+        title: { display: true, text: 'Loss Rate (%)', font: { size: 10 } }
+      }
+    }
+  }
+});
+
+// CHART 14: Africa Access
+new Chart(document.getElementById('chartAfrica'), {
+  type: 'bar',
+  data: {
+    labels: ['Morocco','Egypt','South Africa','Tunisia','Ghana','Kenya','Senegal','Ivory Coast','Nigeria','Ethiopia','Niger','Chad'],
+    datasets: [{
+      label: 'Population with Reliable Electricity (%)',
+      data: [82, 98, 85, 99, 45, 46, 68, 72, 22, 44, 18, 9],
+      backgroundColor: (ctx) => {
+        const v = ctx.parsed.y;
+        return v >= 70 ? TEAL_DIM : v >= 45 ? AMBER_DIM : RED_DIM;
+      },
+      borderColor: (ctx) => {
+        const v = ctx.parsed.y;
+        return v >= 70 ? TEAL : v >= 45 ? AMBER : RED;
+      },
+      borderWidth: 2,
+      borderRadius: 4,
+    }]
+  },
+  options: {
+    responsive: true,
+    maintainAspectRatio: false,
+    plugins: { legend: { display: false } },
+    scales: {
+      x: { grid: { display: false }, ticks: { font: { size: 10 } } },
+      y: {
+        grid: { color: 'rgba(255,255,255,0.04)' },
+        max: 100,
+        title: { display: true, text: '% with Reliable Access', font: { size: 10 } }
+      }
+    }
+  }
+});
+
+// ══ SIDEBAR ACTIVE STATE ON SCROLL ══
+const sections = document.querySelectorAll('section[id]');
+const navLinks = document.querySelectorAll('.sb-link');
+const pageInd = document.getElementById('pageInd');
+
+const observer = new IntersectionObserver((entries) => {
+  entries.forEach(entry => {
+    if (entry.isIntersecting) {
+      const id = entry.target.getAttribute('id');
+      navLinks.forEach(link => {
+        link.classList.remove('active');
+        if (link.getAttribute('href') === `#${id}`) {
+          link.classList.add('active');
+          const num = link.querySelector('.sb-num').textContent;
+          pageInd.textContent = `Section ${num} / 16`;
+        }
+      });
+    }
+  });
+}, { threshold: 0.25 });
+
+sections.forEach(s => observer.observe(s));
+</script>
+</body>
+</html>
